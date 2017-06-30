@@ -9,7 +9,23 @@
 </head>
 <body>
 <header>
-    <h1>Hello World!</h1>
+    <h1>Geth Node Status</h1>
 </header>
+<section>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td># Peers Connected</td>
+            <td th:text="${gethService.peerCount}">-1</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
 </body>
 </html>

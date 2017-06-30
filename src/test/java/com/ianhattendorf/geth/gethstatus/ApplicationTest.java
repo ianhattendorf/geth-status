@@ -27,6 +27,12 @@ public class ApplicationTest {
     @Test
     public void indexShouldRender() throws Exception {
         assertThat(restTemplate.getForObject("http://localhost:" + port + "/", String.class))
-                .contains("Hello World!");
+                .contains("Geth Node Status");
+    }
+    @Test
+    public void indexShouldDisplayPeerCount() throws Exception {
+        // TODO verify peercount is displayed, not that thymeleaf replaced placeholder
+        assertThat(restTemplate.getForObject("http://localhost:" + port + "/", String.class))
+                .doesNotContain("<td>-1</td>");
     }
 }
