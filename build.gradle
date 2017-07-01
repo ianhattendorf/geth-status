@@ -4,6 +4,8 @@ plugins {
     id 'net.researchgate.release' version '2.6.0'
     id 'com.github.ben-manes.versions' version '0.15.0'
     id 'org.springframework.boot' version '1.5.4.RELEASE'
+    id 'nebula.ospackage' version '4.4.0'
+    id 'org.hidetake.ssh' version '2.9.0'
 }
 
 group 'com.ianhattendorf.geth'
@@ -63,4 +65,78 @@ release {
     newVersionCommitMessage = '[Release]: new snapshot version'
     tagTemplate = 'v${version}'
 }
+ospackage {
+    release '1'
+    os = LINUX
+    summary description
+    url 'https://github.com/ianhattendorf/geth-status'
+
+    preInstall file('rpm/preinstall.sh')
+    postInstall "systemctl preset ${project.name} > /dev/null 2>&1"
+    preUninstall "systemctl disable ${project.name} > /dev/null 2>&1" + '\n' +
+            "systemctl stop ${project.name} > /dev/null 2>&1"
+    postUninstall "systemctl daemon-reload > /dev/null 2>&1"
+
+    requires('java-headless', '1.8', GREATER | EQUAL)
+
+    into '/opt/geth-status'
+
+    from(jar.outputs.files) {
+        into 'bin'
+        rename { String fileName ->
+            fileName.replace("-$project.version", '')
+        }
+    }
+    from('src/main/resources/application.properties') {
+        fileType CONFIG | NOREPLACE
+        into 'config'
+    }
+    from('rpm/geth-status.service') {
+        into '/etc/systemd/system'
+        addParentDirs false
+        user 'root'
+        permissionGroup 'root'
+        fileMode = 0644
+    }
+}
+
+task elRpm(type: Rpm) {
+    distribution 'el7'
+    release "$release.$distribution"
+}
+
+task fedoraRpm(type: Rpm) {
+    distribution 'fc26'
+    release "$release.$distribution"
+}
+
+task buildOSPackages {
+    dependsOn elRpm
+    dependsOn fedoraRpm
+    dependsOn buildDeb
+}
+
+remotes {
+    repoServer {
+        host = 'repo'
+        user = 'repo'
+        agent = true
+        knownHosts = allowAnyHosts
+    }
+}
+
+task deploy {
+    doLast {
+        ssh.run {
+            session(remotes.repoServer) {
+                def files = fileTree('build/distributions').filter { it.name =~ /\.rpm$/ }.files
+                put from: files, into: '/var/lib/repos/staging'
+            }
+        }
+    }
+}
+
+elRpm.dependsOn build
+fedoraRpm.dependsOn build
+buildDeb.dependsOn build
 

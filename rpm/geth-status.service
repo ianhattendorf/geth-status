@@ -1,0 +1,13 @@
+[Unit]
+Description=geth-status
+After=syslog.target
+
+[Service]
+User=geth-status
+WorkingDirectory=/opt/geth-status
+# https://bugzilla.redhat.com/show_bug.cgi?id=1358476
+ExecStart=/bin/bash -c '/usr/bin/java -jar /opt/geth-status/bin/geth-status.jar'
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
