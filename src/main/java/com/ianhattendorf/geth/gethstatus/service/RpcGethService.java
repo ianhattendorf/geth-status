@@ -13,12 +13,35 @@ public class RpcGethService implements GethService {
     }
 
     @Override
+    public int getProtocolVersion() {
+        return hexStringToInt(gethRpcApi.ethProtocolVersion());
+    }
+
+    @Override
+    public boolean isListening() {
+        return gethRpcApi.netListening();
+    }
+
+    @Override
     public int getPeerCount() {
+        return hexStringToInt(gethRpcApi.netPeerCount());
+    }
+
+    @Override
+    public Object getSyncing() {
+        return gethRpcApi.ethSyncing();
+    }
+
+    @Override
+    public int getBlockNumber() {
+        return hexStringToInt(gethRpcApi.ethBlockNumber());
+    }
+
+    private int hexStringToInt(String hexString) {
         // 0x3
-        String peerCount = gethRpcApi.netPeerCount();
-        if (!"0x".equals(peerCount.substring(0, 2))) {
-            throw new RuntimeException("Invalid peer count: " + peerCount); // TODO more specific exception
+        if (!"0x".equals(hexString.substring(0, 2))) {
+            throw new RuntimeException("Invalid hex string: " + hexString); // TODO more specific exception
         }
-        return Integer.valueOf(peerCount.substring(2), 16);
+        return Integer.valueOf(hexString.substring(2), 16);
     }
 }

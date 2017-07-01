@@ -19,8 +19,7 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        GethStatus gethStatus = new GethStatus();
-        gethStatus.setPeerCount(gethService.getPeerCount());
+        GethStatus gethStatus = new GethStatus(gethService);
         model.addAttribute("gethStatus", gethStatus);
         return "index";
     }

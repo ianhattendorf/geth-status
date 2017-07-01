@@ -43,8 +43,7 @@ public class UpdateClients {
         if (numConnected.get() == 0) {
             return;
         }
-        GethStatus gethStatus = new GethStatus();
-        gethStatus.setPeerCount(gethService.getPeerCount());
+        GethStatus gethStatus = new GethStatus(gethService);
         try {
             template.convertAndSend("/topic/status", objectMapper.writeValueAsString(gethStatus));
             logger.trace("sent update, {} connected client(s)", numConnected);

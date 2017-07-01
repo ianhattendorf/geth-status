@@ -21,8 +21,24 @@
         </thead>
         <tbody>
         <tr>
+            <td>Protocol Version</td>
+            <td id="protocol-version" th:text="${gethStatus.protocolVersion}">-1</td>
+        </tr>
+        <tr>
+            <td>Listening</td>
+            <td id="listening" th:text="${gethStatus.listening}">-1</td>
+        </tr>
+        <tr>
             <td># Peers Connected</td>
             <td id="peer-count" th:text="${gethStatus.peerCount}">-1</td>
+        </tr>
+        <tr>
+            <td>Syncing</td>
+            <td id="syncing" th:text="${gethStatus.syncing}">false</td>
+        </tr>
+        <tr>
+            <td>Block Number</td>
+            <td id="block-number" th:text="${gethStatus.blockNumber}">-1</td>
         </tr>
         </tbody>
     </table>
