@@ -21,7 +21,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-thymeleaf',
             'org.springframework.boot:spring-boot-starter-websocket',
-            'org.springframework.boot:spring-boot-devtools'
+            'org.springframework.boot:spring-boot-devtools',
+            'com.github.briandilley.jsonrpc4j:jsonrpc4j:1.5.0'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
