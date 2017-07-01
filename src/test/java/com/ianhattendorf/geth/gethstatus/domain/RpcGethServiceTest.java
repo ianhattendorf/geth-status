@@ -2,12 +2,20 @@ package com.ianhattendorf.geth.gethstatus.domain;
 
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 import com.ianhattendorf.geth.gethstatus.service.RpcGethService;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class RpcGethServiceTest {
 
-    private final GethService rpcGethService = new RpcGethService(new MockGethRpcApi());
+    private MockGethRpcApi mockGethRpcApi;
+    private GethService rpcGethService;
+
+    @Before
+    public void setUp() {
+        mockGethRpcApi = new MockGethRpcApi();
+        rpcGethService = new RpcGethService(mockGethRpcApi);
+    }
 
     @Test
     public void testGetProtocolVersion() {
@@ -25,8 +33,14 @@ public class RpcGethServiceTest {
     }
 
     @Test
-    public void testGetSyncing() {
-        assertEquals(Boolean.FALSE, rpcGethService.getSyncing());
+    public void testGetSyncingWhenFalse() {
+        assertEquals("false", rpcGethService.getSyncing());
+    }
+
+    @Test
+    public void testGetSyncingWhenTrue() {
+        mockGethRpcApi.setSyncing(true);
+        assertEquals("{currentBlock=0x2183c, highestBlock=0x3c51c0, knownStates=0x0, pulledStates=0x0, startingBlock=0x0}", rpcGethService.getSyncing());
     }
 
     @Test

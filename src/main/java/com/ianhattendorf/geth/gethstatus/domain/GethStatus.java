@@ -6,7 +6,7 @@ public class GethStatus {
     private int protocolVersion;
     private boolean listening;
     private int peerCount;
-    private Object syncing;
+    private String syncing;
     private int blockNumber;
 
     public GethStatus(GethService gethService) {
@@ -29,7 +29,7 @@ public class GethStatus {
         return peerCount;
     }
 
-    public Object getSyncing() {
+    public String getSyncing() {
         return syncing;
     }
 

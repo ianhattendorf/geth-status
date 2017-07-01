@@ -3,6 +3,8 @@ package com.ianhattendorf.geth.gethstatus.service;
 import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Map;
+
 public class RpcGethService implements GethService {
 
     private final GethRpcApi gethRpcApi;
@@ -28,8 +30,14 @@ public class RpcGethService implements GethService {
     }
 
     @Override
-    public Object getSyncing() {
-        return gethRpcApi.ethSyncing();
+    public String getSyncing() {
+        Object syncing = gethRpcApi.ethSyncing();
+        if (syncing instanceof Map) {
+            @SuppressWarnings("unchecked")
+            Map<String, String> syncingMap = (Map<String, String>) syncing;
+            return syncingMap.toString();
+        }
+        return (String) syncing;
     }
 
     @Override

@@ -4,7 +4,7 @@ public interface GethService {
     int getProtocolVersion();
     boolean isListening();
     int getPeerCount();
-    Object getSyncing();
+    String getSyncing();
     int getBlockNumber();
 
 }

@@ -22,8 +22,8 @@ public class MockGethService implements GethService {
     }
 
     @Override
-    public Object getSyncing() {
-        return Boolean.FALSE;
+    public String getSyncing() {
+        return "false";
     }
 
     @Override
