@@ -37,7 +37,7 @@ public class RpcGethService implements GethService {
             Map<String, String> syncingMap = (Map<String, String>) syncing;
             return syncingMap.toString();
         }
-        return (String) syncing;
+        return syncing.toString();
     }
 
     @Override

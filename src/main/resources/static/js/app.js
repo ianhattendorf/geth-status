@@ -14,6 +14,8 @@ if (window.WebSocket) {
             document.getElementById('peer-count').innerText = data.peerCount
             document.getElementById('syncing').innerText = data.syncing
             document.getElementById('block-number').innerText = data.blockNumber
+            const now = new Date()
+            document.getElementById('last-updated').innerText = moment().format('DD MMM YYYY HH:mm:ss')
         })
     })
 }
