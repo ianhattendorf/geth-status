@@ -19,7 +19,9 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web',
-            'org.springframework.boot:spring-boot-starter-thymeleaf'
+            'org.springframework.boot:spring-boot-starter-thymeleaf',
+            'org.springframework.boot:spring-boot-starter-websocket',
+            'org.springframework.boot:spring-boot-devtools'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

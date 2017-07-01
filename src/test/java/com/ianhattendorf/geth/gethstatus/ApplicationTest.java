@@ -26,13 +26,17 @@ public class ApplicationTest {
 
     @Test
     public void indexShouldRender() throws Exception {
-        assertThat(restTemplate.getForObject("http://localhost:" + port + "/", String.class))
+        assertThat(restTemplate.getForObject(getIndexURL(), String.class))
                 .contains("Geth Node Status");
     }
     @Test
     public void indexShouldDisplayPeerCount() throws Exception {
         // TODO verify peercount is displayed, not that thymeleaf replaced placeholder
-        assertThat(restTemplate.getForObject("http://localhost:" + port + "/", String.class))
+        assertThat(restTemplate.getForObject(getIndexURL(), String.class))
                 .doesNotContain("<td>-1</td>");
+    }
+
+    private String getIndexURL() {
+        return "http://localhost:" + port + "/";
     }
 }

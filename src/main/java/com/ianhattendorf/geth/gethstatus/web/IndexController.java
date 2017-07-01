@@ -1,5 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.web;
 
+import com.ianhattendorf.geth.gethstatus.domain.GethStatus;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,9 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("gethService", gethService);
+        GethStatus gethStatus = new GethStatus();
+        gethStatus.setPeerCount(gethService.getPeerCount());
+        model.addAttribute("gethStatus", gethStatus);
         return "index";
     }
 }
