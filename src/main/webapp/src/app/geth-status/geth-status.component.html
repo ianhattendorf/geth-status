@@ -14,6 +14,61 @@
       <td>Geth Version</td>
       <td>{{gethStatus?.clientVersion}}</td>
     </tr>
+    <tr>
+      <td>Protocol Version</td>
+      <td>{{gethStatus?.protocolVersion}}</td>
+    </tr>
+    <tr>
+      <td>Listening</td>
+      <td>{{gethStatus?.listening}}</td>
+    </tr>
+    <tr>
+      <td>Peer Count</td>
+      <td>{{gethStatus?.peerCount}}</td>
+    </tr>
+    <tr>
+      <td>Syncing</td>
+      <td>{{gethStatus?.syncing}}</td>
+    </tr>
+    <tr>
+      <td>Block Number</td>
+      <td>{{gethStatus?.blockNumber}}</td>
+    </tr>
+    <tr>
+      <td>Gas Price (Wei)</td>
+      <td>{{gethStatus?.gasPrice}}</td>
+    </tr>
+    <tr>
+      <td>Last Updated</td>
+      <td>{{gethStatus?.lastUpdated}}</td>
+    </tr>
+    <!--<tr>-->
+      <!--<td>WebSocket Status</td>-->
+      <!--<td id="ws-status">Offline</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+      <!--<td>IP</td>-->
+      <!--<td th:text="${geoInfo.ip}">Unknown</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+      <!--<td>Location</td>-->
+      <!--<td th:text="${geoInfo.countryName + '/' + geoInfo.regionName}">Unknown</td>-->
+    <!--</tr>-->
+    </tbody>
+  </table>
+  <h2>Peers</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>IP</th>
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let peer of gethStatus?.peers">
+      <td>{{peer.network.remoteAddress}}</td>
+      <td>{{peer.name}}</td>
+    </tr>
     </tbody>
   </table>
 </section>

@@ -1,6 +1,9 @@
 # app
 application-secrets.properties
 
+### Client
+src/main/resources/static
+
 ### Gradle
 build/
 .gradle/

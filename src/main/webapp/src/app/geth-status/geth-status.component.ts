@@ -11,16 +11,15 @@ import { GethStatusService } from '../geth-status.service';
 })
 export class GethStatusComponent implements OnInit {
 
-  status: GethStatus;
-  private gethStatus: GethStatus;
+  gethStatus: GethStatus;
 
   constructor(private gethStatusService: GethStatusService) { }
 
   ngOnInit() {
-    this.getGethStatus();
+    this.loadGethStatus();
   }
 
-  private getGethStatus() {
+  private loadGethStatus() {
     this.gethStatusService.getGethStatus().then(gethStatus => this.gethStatus = gethStatus);
   }
 }

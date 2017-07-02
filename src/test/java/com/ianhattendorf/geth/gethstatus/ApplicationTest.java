@@ -39,15 +39,9 @@ public class ApplicationTest {
     }
 
     @Test
-    public void indexShouldRender() throws Exception {
+    public void indexShouldRenderWithTitle() throws Exception {
         assertThat(restTemplate.getForObject(getIndexURL(), String.class))
-                .contains("Geth Node Status");
-    }
-    @Test
-    public void indexShouldDisplayPeerCount() throws Exception {
-        // TODO verify peercount is displayed, not that thymeleaf replaced placeholder
-        assertThat(restTemplate.getForObject(getIndexURL(), String.class))
-                .doesNotContain("<td>-1</td>");
+                .contains("<title>Geth Node Status</title>");
     }
 
     private String getIndexURL() {

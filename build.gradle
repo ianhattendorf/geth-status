@@ -44,6 +44,20 @@ gradle.projectsEvaluated {
     }
 }
 
+task testClient(type: Exec) {
+    workingDir 'src/main/webapp'
+
+    commandLine 'yarn', 'run', 'lint'
+    commandLine 'yarn', 'run', 'test', '--single-run'
+    commandLine 'yarn', 'run', 'e2e'
+}
+
+task buildClient(type: Exec) {
+    workingDir 'src/main/webapp'
+
+    commandLine 'yarn', 'run', 'build', '--', '-prod'
+}
+
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
@@ -142,7 +156,8 @@ task deploy {
     }
 }
 
+//buildClient.dependsOn testClient // TODO fix client tests (headless browser, don't require live websocket)
+build.dependsOn buildClient
 elRpm.dependsOn build
 fedoraRpm.dependsOn build
 buildDeb.dependsOn build
-

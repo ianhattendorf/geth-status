@@ -3006,6 +3006,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
+moment@^2.18.1:
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
+
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -5101,6 +5105,10 @@ websocket-extensions@>=0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.1.tgz#76899499c184b6ef754377c2dbb0cd6cb55d29e7"
 
+webstomp-client@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/webstomp-client/-/webstomp-client-1.0.6.tgz#9fe1627dd48823cda5f4ade9d34672ac33c837e0"
+
 when@~3.6.x:
   version "3.6.4"
   resolved "https://registry.yarnpkg.com/when/-/when-3.6.4.tgz#473b517ec159e2b85005497a13983f095412e34e"
@@ -5148,16 +5156,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-ws@1.1.2:
+ws@1.1.2, ws@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.2.tgz#8a244fa052401e08c9886cf44a85189e1fd4067f"
-  dependencies:
-    options ">=0.0.5"
-    ultron "1.0.x"
-
-ws@^1.0.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.4.tgz#57f40d036832e5f5055662a397c4de76ed66bf61"
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"
