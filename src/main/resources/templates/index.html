@@ -44,6 +44,10 @@
             <td>Last Updated</td>
             <td id="last-updated" th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm:ss')}">never</td>
         </tr>
+        <tr>
+            <td>WebSocket Status</td>
+            <td id="ws-status">Offline</td>
+        </tr>
         </tbody>
     </table>
 </section>
