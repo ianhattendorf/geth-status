@@ -1,7 +1,10 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
+import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -39,5 +42,17 @@ public class MockGethService implements GethService {
     @Override
     public long getGasPrice() {
         return 1234567890;
+    }
+
+    @Override
+    public List<GethPeer> getPeers() {
+        List<GethPeer> peers = new ArrayList<>();
+        GethPeer peer = new GethPeer();
+        peer.setName("Geth1");
+        GethPeer.Network network = new GethPeer.Network();
+        network.setRemoteAddress("1.2.3.4");
+        peer.setNetwork(network);
+        peers.add(peer);
+        return peers;
     }
 }

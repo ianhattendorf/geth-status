@@ -2,6 +2,8 @@ package com.ianhattendorf.geth.gethstatus.domain;
 
 import com.googlecode.jsonrpc4j.JsonRpcMethod;
 
+import java.util.List;
+
 public interface GethRpcApi {
 
     @JsonRpcMethod("web3_clientVersion")
@@ -24,4 +26,7 @@ public interface GethRpcApi {
 
     @JsonRpcMethod("eth_gasPrice")
     String ethGasPrice();
+
+    @JsonRpcMethod("admin_peers")
+    List<GethPeer> adminPeers();
 }

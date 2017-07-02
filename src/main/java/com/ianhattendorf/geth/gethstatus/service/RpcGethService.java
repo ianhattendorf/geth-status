@@ -1,8 +1,10 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
+import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Map;
 
 public class RpcGethService implements GethService {
@@ -53,6 +55,11 @@ public class RpcGethService implements GethService {
     @Override
     public long getGasPrice() {
         return hexStringToLong(gethRpcApi.ethGasPrice());
+    }
+
+    @Override
+    public List<GethPeer> getPeers() {
+        return gethRpcApi.adminPeers();
     }
 
     private Long hexStringToLong(String hexString) {

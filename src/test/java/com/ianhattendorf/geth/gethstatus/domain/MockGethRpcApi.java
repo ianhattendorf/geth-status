@@ -1,6 +1,8 @@
 package com.ianhattendorf.geth.gethstatus.domain;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class MockGethRpcApi implements GethRpcApi {
@@ -57,5 +59,14 @@ public final class MockGethRpcApi implements GethRpcApi {
     @Override
     public String ethGasPrice() {
         return "0x1234567890";
+    }
+
+    @Override
+    public List<GethPeer> adminPeers() {
+        List<GethPeer> peers = new ArrayList<>();
+        GethPeer peer = new GethPeer();
+        peer.setName("Geth1");
+        peers.add(peer);
+        return peers;
     }
 }

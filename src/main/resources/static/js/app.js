@@ -27,6 +27,7 @@ function onStatusMessageReceived(message) {
     document.getElementById('gas-price').innerText = data.gasPrice.toLocaleString()
     const now = new Date()
     document.getElementById('last-updated').innerText = moment().format('DD MMM YYYY HH:mm:ss')
+    // TODO dynamic peers (after view framework)
 }
 
 function onStompError(error) {

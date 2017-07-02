@@ -2,6 +2,8 @@ package com.ianhattendorf.geth.gethstatus.domain;
 
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 
+import java.util.List;
+
 public class GethStatus {
     private String clientVersion;
     private int protocolVersion;
@@ -10,6 +12,7 @@ public class GethStatus {
     private String syncing;
     private int blockNumber;
     private long gasPrice;
+    private List<GethPeer> peers;
 
     public GethStatus(GethService gethService) {
         this.clientVersion = gethService.getClientVersion();
@@ -19,6 +22,7 @@ public class GethStatus {
         this.syncing = gethService.getSyncing();
         this.blockNumber = gethService.getBlockNumber();
         this.gasPrice = gethService.getGasPrice();
+        this.peers = gethService.getPeers();
     }
 
     public String getClientVersion() {
@@ -47,5 +51,9 @@ public class GethStatus {
 
     public long getGasPrice() {
         return gasPrice;
+    }
+
+    public List<GethPeer> getPeers() {
+        return peers;
     }
 }

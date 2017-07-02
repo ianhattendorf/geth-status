@@ -1,10 +1,14 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
+import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.MockGethRpcApi;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 import com.ianhattendorf.geth.gethstatus.service.RpcGethService;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class RpcGethServiceTest {
@@ -57,5 +61,12 @@ public class RpcGethServiceTest {
     @Test
     public void testGetGasPrice() {
         assertEquals(78187493520L, rpcGethService.getGasPrice());
+    }
+
+    @Test
+    public void testGetPeers() {
+        List<GethPeer> peers = rpcGethService.getPeers();
+        assertEquals(1, peers.size());
+        assertEquals("Geth1", peers.get(0).getName());
     }
 }
