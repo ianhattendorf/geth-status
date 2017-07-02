@@ -48,6 +48,14 @@
             <td>WebSocket Status</td>
             <td id="ws-status">Offline</td>
         </tr>
+        <tr>
+            <td>IP</td>
+            <td th:text="${geoInfo.ip}">Unknown</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td th:text="${geoInfo.countryName + '/' + geoInfo.regionName}">Unknown</td>
+        </tr>
         </tbody>
     </table>
 </section>

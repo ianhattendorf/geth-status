@@ -20,11 +20,17 @@ repositories {
 }
 
 dependencies {
+    def retrofitVersion = '2.3.0'
+
     compile 'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-thymeleaf',
             'org.springframework.boot:spring-boot-starter-websocket',
+            'org.springframework.boot:spring-boot-starter-cache',
             'org.springframework.boot:spring-boot-devtools',
-            'com.github.briandilley.jsonrpc4j:jsonrpc4j:1.5.0'
+            'com.github.briandilley.jsonrpc4j:jsonrpc4j:1.5.0',
+            "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            "com.squareup.retrofit2:converter-jackson:$retrofitVersion",
+            "com.squareup.retrofit2:adapter-java8:$retrofitVersion"
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

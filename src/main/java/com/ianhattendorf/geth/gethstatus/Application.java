@@ -3,13 +3,18 @@ package com.ianhattendorf.geth.gethstatus;
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
+import com.ianhattendorf.geth.gethstatus.domain.FreeGeoApi;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 import com.ianhattendorf.geth.gethstatus.service.RpcGethService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import retrofit2.Retrofit;
+import retrofit2.adapter.java8.Java8CallAdapterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,6 +23,7 @@ import java.util.Map;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableCaching
 public class Application {
 
     public static void main(String[] args) throws Exception {
@@ -40,5 +46,19 @@ public class Application {
     @Bean
     public GethService gethService(GethRpcApi gethRpcApi) {
         return new RpcGethService(gethRpcApi);
+    }
+
+    @Bean
+    public Retrofit retrofit() {
+        return new Retrofit.Builder()
+                .baseUrl("https://freegeoip.net")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(Java8CallAdapterFactory.create())
+                .build();
+    }
+
+    @Bean
+    public FreeGeoApi geoService(Retrofit retrofit) {
+        return retrofit.create(FreeGeoApi.class);
     }
 }

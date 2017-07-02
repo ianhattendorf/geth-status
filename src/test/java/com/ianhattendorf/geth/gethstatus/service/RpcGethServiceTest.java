@@ -1,5 +1,6 @@
-package com.ianhattendorf.geth.gethstatus.domain;
+package com.ianhattendorf.geth.gethstatus.service;
 
+import com.ianhattendorf.geth.gethstatus.domain.MockGethRpcApi;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 import com.ianhattendorf.geth.gethstatus.service.RpcGethService;
 import org.junit.Before;
