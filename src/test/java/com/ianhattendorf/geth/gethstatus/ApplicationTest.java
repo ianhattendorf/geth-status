@@ -1,7 +1,7 @@
 package com.ianhattendorf.geth.gethstatus;
 
-import com.ianhattendorf.geth.gethstatus.service.GethService;
-import com.ianhattendorf.geth.gethstatus.service.MockGethService;
+import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
+import com.ianhattendorf.geth.gethstatus.domain.MockGethRpcApi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class ApplicationTest {
     @Import(Application.class)
     public static class TestConfig {
         @Bean
-        public GethService gethService() {
-            return new MockGethService();
+        public GethRpcApi gethRpcApi() {
+            return new MockGethRpcApi();
         }
     }
 

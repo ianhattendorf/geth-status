@@ -66,6 +66,9 @@ public final class MockGethRpcApi implements GethRpcApi {
         List<GethPeer> peers = new ArrayList<>();
         GethPeer peer = new GethPeer();
         peer.setName("Geth1");
+        GethPeer.Network network = new GethPeer.Network();
+        network.setRemoteAddress("1.2.3.4");
+        peer.setNetwork(network);
         peers.add(peer);
         return peers;
     }
