@@ -9,6 +9,6 @@ describe('webapp App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to Geth Node Status!!');
+    expect(page.getParagraphText()).toEqual('Geth Node Status');
   });
 });

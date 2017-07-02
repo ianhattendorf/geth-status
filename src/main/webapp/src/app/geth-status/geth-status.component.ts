@@ -1,20 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+
 import { GethStatus } from './geth-status';
+import { GethStatusService } from '../geth-status.service';
 
 @Component({
   selector: 'app-geth-status',
   templateUrl: './geth-status.component.html',
-  styleUrls: ['./geth-status.component.css']
+  styleUrls: ['./geth-status.component.css'],
+  providers: [GethStatusService]
 })
 export class GethStatusComponent implements OnInit {
 
-  status: GethStatus = {
-    clientVersion: 'v1'
-  };
+  status: GethStatus;
+  private gethStatus: GethStatus;
 
-  constructor() { }
+  constructor(private gethStatusService: GethStatusService) { }
 
   ngOnInit() {
+    this.getGethStatus();
   }
 
+  private getGethStatus() {
+    this.gethStatusService.getGethStatus().then(gethStatus => this.gethStatus = gethStatus);
+  }
 }
