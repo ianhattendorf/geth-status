@@ -4,6 +4,9 @@ import com.googlecode.jsonrpc4j.JsonRpcMethod;
 
 public interface GethRpcApi {
 
+    @JsonRpcMethod("web3_clientVersion")
+    String web3ClientVersion();
+
     @JsonRpcMethod("eth_protocolVersion")
     String ethProtocolVersion();
 
@@ -18,4 +21,7 @@ public interface GethRpcApi {
 
     @JsonRpcMethod("eth_blockNumber")
     String ethBlockNumber();
+
+    @JsonRpcMethod("eth_gasPrice")
+    String ethGasPrice();
 }

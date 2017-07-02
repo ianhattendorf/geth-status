@@ -19,6 +19,11 @@ public class RpcGethServiceTest {
     }
 
     @Test
+    public void testGetClientVersion() {
+        assertEquals("Geth/v1.6.6", rpcGethService.getClientVersion());
+    }
+
+    @Test
     public void testGetProtocolVersion() {
         assertEquals(10001, rpcGethService.getProtocolVersion());
     }
@@ -47,5 +52,10 @@ public class RpcGethServiceTest {
     @Test
     public void testGetBlockNumber() {
         assertEquals(291, rpcGethService.getBlockNumber());
+    }
+
+    @Test
+    public void testGetGasPrice() {
+        assertEquals(78187493520L, rpcGethService.getGasPrice());
     }
 }

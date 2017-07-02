@@ -21,6 +21,10 @@
         </thead>
         <tbody>
         <tr>
+            <td>Geth Version</td>
+            <td id="client-version" th:text="${gethStatus.clientVersion}">-1</td>
+        </tr>
+        <tr>
             <td>Protocol Version</td>
             <td id="protocol-version" th:text="${gethStatus.protocolVersion}">-1</td>
         </tr>
@@ -39,6 +43,10 @@
         <tr>
             <td>Block Number</td>
             <td id="block-number" th:text="${gethStatus.blockNumber}">-1</td>
+        </tr>
+        <tr>
+            <td>Gas Price (Wei)</td>
+            <td id="gas-price" th:text="${#numbers.formatInteger(gethStatus.gasPrice, 0, 'COMMA')}">-1</td>
         </tr>
         <tr>
             <td>Last Updated</td>

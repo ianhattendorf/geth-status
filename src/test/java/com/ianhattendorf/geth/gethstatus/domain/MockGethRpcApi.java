@@ -16,6 +16,11 @@ public final class MockGethRpcApi implements GethRpcApi {
     }
 
     @Override
+    public String web3ClientVersion() {
+        return "Geth/v1.6.6";
+    }
+
+    @Override
     public String ethProtocolVersion() {
         return "0x2711";
     }
@@ -47,5 +52,10 @@ public final class MockGethRpcApi implements GethRpcApi {
     @Override
     public String ethBlockNumber() {
         return "0x123";
+    }
+
+    @Override
+    public String ethGasPrice() {
+        return "0x1234567890";
     }
 }

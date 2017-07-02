@@ -15,8 +15,13 @@ public class RpcGethService implements GethService {
     }
 
     @Override
+    public String getClientVersion() {
+        return gethRpcApi.web3ClientVersion();
+    }
+
+    @Override
     public int getProtocolVersion() {
-        return hexStringToInt(gethRpcApi.ethProtocolVersion());
+        return hexStringToLong(gethRpcApi.ethProtocolVersion()).intValue();
     }
 
     @Override
@@ -26,7 +31,7 @@ public class RpcGethService implements GethService {
 
     @Override
     public int getPeerCount() {
-        return hexStringToInt(gethRpcApi.netPeerCount());
+        return hexStringToLong(gethRpcApi.netPeerCount()).intValue();
     }
 
     @Override
@@ -42,14 +47,19 @@ public class RpcGethService implements GethService {
 
     @Override
     public int getBlockNumber() {
-        return hexStringToInt(gethRpcApi.ethBlockNumber());
+        return hexStringToLong(gethRpcApi.ethBlockNumber()).intValue();
     }
 
-    private int hexStringToInt(String hexString) {
+    @Override
+    public long getGasPrice() {
+        return hexStringToLong(gethRpcApi.ethGasPrice());
+    }
+
+    private Long hexStringToLong(String hexString) {
         // 0x3
         if (!"0x".equals(hexString.substring(0, 2))) {
             throw new RuntimeException("Invalid hex string: " + hexString); // TODO more specific exception
         }
-        return Integer.valueOf(hexString.substring(2), 16);
+        return Long.valueOf(hexString.substring(2), 16);
     }
 }
