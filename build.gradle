@@ -168,6 +168,8 @@ testClient.dependsOn yarnInstall
 buildClient.dependsOn yarnInstall
 //buildClient.dependsOn testClient // TODO fix client tests (headless browser, don't require live websocket)
 build.dependsOn buildClient
+processResources.dependsOn buildClient
+
 elRpm.dependsOn build
 fedoraRpm.dependsOn build
 buildDeb.dependsOn build
