@@ -23,12 +23,12 @@ public class FreeGeoServiceTest {
         FreeGeoInfo info = new FreeGeoInfo();
         info.setIp("1.2.3.4");
         mockFreeGeoApi.setFreeGeoInfo(info);
-        assertEquals("1.2.3.4", geoService.getInfo().getIp());
+        assertEquals("1.2.3.4", geoService.getInfo("1.2.3.4").getIp());
     }
 
     @Test
     public void geoServiceReturnsUnknownIpWhenServiceIsDown() {
         mockFreeGeoApi.setThrowable(new Throwable());
-        assertEquals("Unknown", geoService.getInfo().getIp());
+        assertEquals("Unknown", geoService.getInfo(null).getIp());
     }
 }

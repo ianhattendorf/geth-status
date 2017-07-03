@@ -1,7 +1,10 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
+import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
 import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +14,15 @@ import java.util.Map;
 @Service
 public class RpcGethService implements GethService {
 
+    private static final Logger logger = LoggerFactory.getLogger(RpcGethService.class);
+
     private final GethRpcApi gethRpcApi;
+    private final GeoService geoService;
 
     @Autowired
-    public RpcGethService(GethRpcApi gethRpcApi) {
+    public RpcGethService(GethRpcApi gethRpcApi, GeoService geoService) {
         this.gethRpcApi = gethRpcApi;
+        this.geoService = geoService;
     }
 
     @Override
@@ -61,7 +68,23 @@ public class RpcGethService implements GethService {
 
     @Override
     public List<GethPeer> getPeers() {
-        return gethRpcApi.adminPeers();
+        List<GethPeer> peers = gethRpcApi.adminPeers();
+        peers.parallelStream().forEach(gethPeer -> {
+            GethPeer.Network network = gethPeer.getNetwork();
+            network.setRemoteAddress(ipTrimPort(network.getRemoteAddress()));
+
+            FreeGeoInfo info = geoService.getInfo(network.getRemoteAddress());
+            gethPeer.getNetwork().setRemoteGeoInfo(info);
+        });
+        return peers;
+    }
+
+    private String ipTrimPort(String ip) {
+        int lastColonIndex = ip.lastIndexOf(":");
+        if (lastColonIndex != -1) {
+            return ip.substring(0, lastColonIndex);
+        }
+        return ip;
     }
 
     private Long hexStringToLong(String hexString) {

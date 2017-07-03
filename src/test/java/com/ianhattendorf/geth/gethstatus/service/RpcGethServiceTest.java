@@ -1,9 +1,9 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
+import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
 import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
+import com.ianhattendorf.geth.gethstatus.domain.MockFreeGeoApi;
 import com.ianhattendorf.geth.gethstatus.domain.MockGethRpcApi;
-import com.ianhattendorf.geth.gethstatus.service.GethService;
-import com.ianhattendorf.geth.gethstatus.service.RpcGethService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,12 +14,16 @@ import static org.junit.Assert.assertEquals;
 public class RpcGethServiceTest {
 
     private MockGethRpcApi mockGethRpcApi;
+    private MockFreeGeoApi mockFreeGeoApi;
+    private GeoService geoService;
     private GethService rpcGethService;
 
     @Before
     public void setUp() {
         mockGethRpcApi = new MockGethRpcApi();
-        rpcGethService = new RpcGethService(mockGethRpcApi);
+        mockFreeGeoApi = new MockFreeGeoApi();
+        geoService = new FreeGeoService(mockFreeGeoApi);
+        rpcGethService = new RpcGethService(mockGethRpcApi, geoService);
     }
 
     @Test
@@ -65,6 +69,7 @@ public class RpcGethServiceTest {
 
     @Test
     public void testGetPeers() {
+        mockFreeGeoApi.setFreeGeoInfo(new FreeGeoInfo());
         List<GethPeer> peers = rpcGethService.getPeers();
         assertEquals(1, peers.size());
         assertEquals("Geth1", peers.get(0).getName());

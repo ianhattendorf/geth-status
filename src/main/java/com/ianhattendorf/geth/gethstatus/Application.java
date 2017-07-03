@@ -4,6 +4,7 @@ import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
 import com.ianhattendorf.geth.gethstatus.domain.FreeGeoApi;
+import com.ianhattendorf.geth.gethstatus.service.GeoService;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 import com.ianhattendorf.geth.gethstatus.service.RpcGethService;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,8 +46,8 @@ public class Application {
     }
 
     @Bean
-    public GethService gethService(GethRpcApi gethRpcApi) {
-        return new RpcGethService(gethRpcApi);
+    public GethService gethService(GethRpcApi gethRpcApi, GeoService geoService) {
+        return new RpcGethService(gethRpcApi, geoService);
     }
 
     @Bean

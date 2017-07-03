@@ -74,6 +74,7 @@ public class GethPeer {
     public static class Network {
         private String localAddress;
         private String remoteAddress;
+        private FreeGeoInfo remoteGeoInfo;
 
         public String getLocalAddress() {
             return localAddress;
@@ -91,15 +92,25 @@ public class GethPeer {
             this.remoteAddress = remoteAddress;
         }
 
+        public FreeGeoInfo getRemoteGeoInfo() {
+            return remoteGeoInfo;
+        }
+
+        public void setRemoteGeoInfo(FreeGeoInfo remoteGeoInfo) {
+            this.remoteGeoInfo = remoteGeoInfo;
+        }
+
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder("Network{");
             sb.append("localAddress='").append(localAddress).append('\'');
             sb.append(", remoteAddress='").append(remoteAddress).append('\'');
+            sb.append(", remoteGeoInfo=").append(remoteGeoInfo);
             sb.append('}');
             return sb.toString();
         }
 
+        // ignore remoteGeoInfo
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -109,6 +120,7 @@ public class GethPeer {
                     Objects.equals(remoteAddress, network.remoteAddress);
         }
 
+        // ignore remoteGeoInfo
         @Override
         public int hashCode() {
             return Objects.hash(localAddress, remoteAddress);

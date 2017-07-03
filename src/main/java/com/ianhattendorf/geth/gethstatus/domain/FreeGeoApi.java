@@ -1,11 +1,11 @@
 package com.ianhattendorf.geth.gethstatus.domain;
 
-import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 import java.util.concurrent.CompletableFuture;
 
 public interface FreeGeoApi {
-    @GET("/json")
-    CompletableFuture<FreeGeoInfo> getInfo();
+    @GET("/json/{ip}")
+    CompletableFuture<FreeGeoInfo> getInfo(@Path("ip") String ip);
 }

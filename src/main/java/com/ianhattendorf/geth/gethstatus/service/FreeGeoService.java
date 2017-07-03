@@ -24,10 +24,10 @@ public class FreeGeoService implements GeoService {
 
     @Cacheable("freeGeoInfo")
     @Override
-    public FreeGeoInfo getInfo() {
+    public FreeGeoInfo getInfo(String ip) {
         try {
-            logger.debug("Fetching geo IP info");
-            return freeGeoApi.getInfo().get();
+            logger.debug("Fetching geo IP info: {}", ip);
+            return freeGeoApi.getInfo(ip).get();
         } catch (InterruptedException e) {
             logger.error("Thread interrupted while loading geo ip", e);
             Thread.currentThread().interrupt();

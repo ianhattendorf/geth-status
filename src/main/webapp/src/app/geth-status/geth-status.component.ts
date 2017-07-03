@@ -22,4 +22,8 @@ export class GethStatusComponent implements OnInit {
   private loadGethStatus() {
     this.gethStatusService.getGethStatus().then(gethStatus => this.gethStatus = gethStatus);
   }
+
+  getFlagUrl(countryCode: string) : string {
+    return `/assets/svg/${countryCode.toLowerCase()}.svg`;
+  }
 }

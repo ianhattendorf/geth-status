@@ -24,7 +24,7 @@ public class MockFreeGeoApi implements FreeGeoApi {
     }
 
     @Override
-    public CompletableFuture<FreeGeoInfo> getInfo() {
+    public CompletableFuture<FreeGeoInfo> getInfo(String ip) {
         if (throwable != null) {
             CompletableFuture<FreeGeoInfo> completableFuture = new CompletableFuture<>();
             completableFuture.completeExceptionally(throwable);
