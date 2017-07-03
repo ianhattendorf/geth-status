@@ -46,6 +46,10 @@ gradle.projectsEvaluated {
     }
 }
 
+clean.doFirst {
+    delete "${rootDir}/src/main/resources/static/"
+}
+
 task yarnInstall(type: Exec) {
     workingDir webappDir
 
