@@ -35,14 +35,16 @@ export class GethStatusService {
     };
 
     client.connect(connectionHeaders, () => {
-      client.subscribe('/topic/status', this.onStatusMessageReceived.bind(this))
+      client.subscribe('/topic/status', this.onStatusMessageReceived.bind(this));
+      client.subscribe('/user/queue/init', this.onStatusMessageReceived.bind(this))
+      client.send('/app/init')
     }, this.onStompError.bind(this));
   }
 
   private onStatusMessageReceived(message): void {
-    console.log("this", this)
     const data = JSON.parse(message.body)
     console.log("received: ", message, data)
+
     this.gethStatus.clientVersion = data.clientVersion;
     this.gethStatus.protocolVersion = data.protocolVersion;
     this.gethStatus.listening = data.listening;
