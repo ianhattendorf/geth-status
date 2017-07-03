@@ -1,14 +1,11 @@
 package com.ianhattendorf.geth.gethstatus.task;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ianhattendorf.geth.gethstatus.domain.GethStatus;
-import com.ianhattendorf.geth.gethstatus.service.GethService;
+import com.ianhattendorf.geth.gethstatus.service.GethStatusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -22,34 +19,36 @@ public class UpdateClients {
 
     private static final Logger logger = LoggerFactory.getLogger(UpdateClients.class);
 
-    private final GethService gethService;
+    private final GethStatusService gethStatusService;
     private final SimpMessagingTemplate template;
-    private final ObjectMapper objectMapper;
-
 
     // number of clients connected, not necessarily subscribed
     private AtomicInteger numConnected = new AtomicInteger();
+    private GethStatus gethStatus;
 
     @Autowired
-    public UpdateClients(GethService gethService, SimpMessagingTemplate template,
-                         MappingJackson2HttpMessageConverter springMvcJacksonConverter) {
-        this.gethService = gethService;
+    public UpdateClients(GethStatusService gethStatusService, SimpMessagingTemplate template) {
+        this.gethStatusService = gethStatusService;
         this.template = template;
-        this.objectMapper = springMvcJacksonConverter.getObjectMapper();
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedDelayString = "${geth.stomp.updateCheckDelay}")
     public void sendUpdate() {
         if (numConnected.get() == 0) {
+            logger.trace("no clients connected, not sending update");
             return;
         }
-        GethStatus gethStatus = new GethStatus(gethService);
-        try {
-            template.convertAndSend("/topic/status", objectMapper.writeValueAsString(gethStatus));
-            logger.trace("sent update, {} connected client(s)", numConnected);
-        } catch (JsonProcessingException e) {
-            logger.error("Exception writing gethStatus object to json", e);
+
+        GethStatus newGethStatus = gethStatusService.getGethStatus();
+        if (newGethStatus.equals(gethStatus)) {
+            // only send update if gethStatus changed
+            logger.trace("retreived statuses are the same, not sending update");
+            return;
         }
+        gethStatus = newGethStatus;
+
+        template.convertAndSend("/topic/status", gethStatus);
+        logger.trace("sent update, {} connected client(s)", numConnected);
     }
 
     @EventListener

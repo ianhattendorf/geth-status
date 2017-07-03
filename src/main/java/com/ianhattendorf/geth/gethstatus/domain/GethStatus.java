@@ -3,16 +3,17 @@ package com.ianhattendorf.geth.gethstatus.domain;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GethStatus {
-    private String clientVersion;
-    private int protocolVersion;
-    private boolean listening;
-    private int peerCount;
-    private String syncing;
-    private int blockNumber;
-    private long gasPrice;
-    private List<GethPeer> peers;
+    private final String clientVersion;
+    private final int protocolVersion;
+    private final boolean listening;
+    private final int peerCount;
+    private final String syncing;
+    private final int blockNumber;
+    private final long gasPrice;
+    private final List<GethPeer> peers;
 
     public GethStatus(GethService gethService) {
         this.clientVersion = gethService.getClientVersion();
@@ -55,5 +56,25 @@ public class GethStatus {
 
     public List<GethPeer> getPeers() {
         return peers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GethStatus that = (GethStatus) o;
+        return protocolVersion == that.protocolVersion &&
+                listening == that.listening &&
+                peerCount == that.peerCount &&
+                blockNumber == that.blockNumber &&
+                gasPrice == that.gasPrice &&
+                Objects.equals(clientVersion, that.clientVersion) &&
+                Objects.equals(syncing, that.syncing) &&
+                Objects.equals(peers, that.peers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clientVersion, protocolVersion, listening, peerCount, syncing, blockNumber, gasPrice, peers);
     }
 }

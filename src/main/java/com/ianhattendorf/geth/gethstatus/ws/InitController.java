@@ -1,7 +1,7 @@
 package com.ianhattendorf.geth.gethstatus.ws;
 
 import com.ianhattendorf.geth.gethstatus.domain.GethStatus;
-import com.ianhattendorf.geth.gethstatus.service.GethService;
+import com.ianhattendorf.geth.gethstatus.service.GethStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -9,14 +9,14 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class StatusController {
+public class InitController {
 
-    private final GethService gethService;
+    private final GethStatusService gethStatusService;
     private final SimpMessageSendingOperations messagingTemplate;
 
     @Autowired
-    public StatusController(GethService gethService, SimpMessageSendingOperations messagingTemplate) {
-        this.gethService = gethService;
+    public InitController(GethStatusService gethStatusService, SimpMessageSendingOperations messagingTemplate) {
+        this.gethStatusService = gethStatusService;
         this.messagingTemplate = messagingTemplate;
     }
 
@@ -28,7 +28,7 @@ public class StatusController {
     public void status(SimpMessageHeaderAccessor headerAccessor) {
         String id = headerAccessor.getSessionId();
         headerAccessor.setLeaveMutable(true);
-        GethStatus message = new GethStatus(gethService);
+        GethStatus message = gethStatusService.getGethStatus();
         messagingTemplate.convertAndSendToUser(id, "/queue/init", message, headerAccessor.getMessageHeaders());
     }
 }

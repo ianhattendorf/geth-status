@@ -3,10 +3,12 @@ package com.ianhattendorf.geth.gethstatus.service;
 import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class RpcGethService implements GethService {
 
     private final GethRpcApi gethRpcApi;

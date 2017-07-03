@@ -18,6 +18,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +47,11 @@ public class Application {
     @Bean
     public GethService gethService(GethRpcApi gethRpcApi) {
         return new RpcGethService(gethRpcApi);
+    }
+
+    @Bean
+    public Duration gethStatusCacheDuration(@Value("${geth.status.cacheDuration}") int cacheDuration) {
+        return Duration.ofMillis(cacheDuration);
     }
 
     @Bean
