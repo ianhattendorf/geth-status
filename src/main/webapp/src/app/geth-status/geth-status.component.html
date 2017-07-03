@@ -2,7 +2,8 @@
   <h1>Geth Node Status</h1>
 </header>
 <section>
-  <table>
+
+  <table class="table table-bordered">
     <thead>
     <tr>
       <th>Name</th>
@@ -11,35 +12,35 @@
     </thead>
     <tbody>
     <tr>
-      <td>Geth Version</td>
+      <th scope="row">Geth Version</th>
       <td>{{gethStatus?.clientVersion}}</td>
     </tr>
     <tr>
-      <td>Protocol Version</td>
+      <th scope="row">Protocol Version</th>
       <td>{{gethStatus?.protocolVersion}}</td>
     </tr>
     <tr>
-      <td>Listening</td>
+      <th scope="row">Listening</th>
       <td>{{gethStatus?.listening}}</td>
     </tr>
     <tr>
-      <td>Peer Count</td>
+      <th scope="row">Peer Count</th>
       <td>{{gethStatus?.peerCount}}</td>
     </tr>
     <tr>
-      <td>Syncing</td>
+      <th scope="row">Syncing</th>
       <td>{{gethStatus?.syncing}}</td>
     </tr>
     <tr>
-      <td>Block Number</td>
+      <th scope="row">Block Number</th>
       <td>{{gethStatus?.blockNumber}}</td>
     </tr>
     <tr>
-      <td>Gas Price (Wei)</td>
+      <th scope="row">Gas Price (Wei)</th>
       <td>{{gethStatus?.gasPrice}}</td>
     </tr>
     <tr>
-      <td>Last Updated</td>
+      <th scope="row">Last Updated</th>
       <td>{{gethStatus?.lastUpdated}}</td>
     </tr>
     <!--<tr>-->
@@ -57,15 +58,17 @@
     </tbody>
   </table>
   <h2>Peers</h2>
-  <table>
+  <table class="table table-bordered">
     <thead>
     <tr>
+      <th>#</th>
       <th>IP</th>
       <th>Name</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let peer of gethStatus?.peers">
+    <tr *ngFor="let peer of gethStatus?.peers; let i = index">
+      <th scope="row">{{i + 1}}</th>
       <td>{{peer.network.remoteAddress}}</td>
       <td>{{peer.name}}</td>
     </tr>
