@@ -35,6 +35,10 @@ export class GethStatusService {
     };
 
     client.connect(connectionHeaders, () => {
+      const win: any = window;
+      if (win && win.loading_screen) {
+        win.loading_screen.finish();
+      }
       client.subscribe('/topic/status', this.onStatusMessageReceived.bind(this));
       client.subscribe('/user/queue/init', this.onStatusMessageReceived.bind(this))
       client.send('/app/init')
