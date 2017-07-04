@@ -9,5 +9,9 @@ export const GETH_STATUS: GethStatus = {
   blockNumber: 3964606,
   gasPrice: 20000000000,
   peers: [],
-  lastUpdated: '02 Jul 2017 14:07:39'
+  lastUpdated: '02 Jul 2017 14:07:39',
+  diskStats: {
+    usedGB: '123',
+    totalGB: '321'
+  }
 }

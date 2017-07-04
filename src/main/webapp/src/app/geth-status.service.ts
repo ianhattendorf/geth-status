@@ -56,6 +56,7 @@ export class GethStatusService {
     this.gethStatus.syncing = data.syncing;
     this.gethStatus.blockNumber = data.blockNumber;
     this.gethStatus.gasPrice = data.gasPrice.toLocaleString();
+    this.gethStatus.diskStats = data.diskStats;
     this.gethStatus.peers = data.peers;
     this.gethStatus.lastUpdated = moment().format('DD MMM YYYY HH:mm:ss');
   }

@@ -1,4 +1,5 @@
 import {GethPeer} from "./geth-peer";
+import {DiskStats} from "./disk-stats";
 
 export class GethStatus {
   clientVersion: string;
@@ -9,5 +10,6 @@ export class GethStatus {
   blockNumber: number;
   gasPrice: number;
   peers: GethPeer[];
+  diskStats: DiskStats;
   lastUpdated: string;
 }

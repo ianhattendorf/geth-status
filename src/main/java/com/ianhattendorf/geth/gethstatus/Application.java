@@ -68,4 +68,9 @@ public class Application {
     public FreeGeoApi geoService(Retrofit retrofit) {
         return retrofit.create(FreeGeoApi.class);
     }
+
+    @Bean
+    public String gethDataDir(@Value("${geth.dataDir}") String dataDir) {
+        return dataDir;
+    }
 }

@@ -13,9 +13,10 @@ public class GethStatus {
     private final String syncing;
     private final int blockNumber;
     private final long gasPrice;
+    private final DiskStats diskStats;
     private final List<GethPeer> peers;
 
-    public GethStatus(GethService gethService) {
+    public GethStatus(GethService gethService, DiskStats diskStats) {
         this.clientVersion = gethService.getClientVersion();
         this.protocolVersion = gethService.getProtocolVersion();
         this.listening = gethService.isListening();
@@ -24,6 +25,7 @@ public class GethStatus {
         this.blockNumber = gethService.getBlockNumber();
         this.gasPrice = gethService.getGasPrice();
         this.peers = gethService.getPeers();
+        this.diskStats = diskStats;
     }
 
     public String getClientVersion() {
@@ -58,6 +60,10 @@ public class GethStatus {
         return peers;
     }
 
+    public DiskStats getDiskStats() {
+        return diskStats;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,11 +76,12 @@ public class GethStatus {
                 gasPrice == that.gasPrice &&
                 Objects.equals(clientVersion, that.clientVersion) &&
                 Objects.equals(syncing, that.syncing) &&
+                Objects.equals(diskStats, that.diskStats) &&
                 Objects.equals(peers, that.peers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(clientVersion, protocolVersion, listening, peerCount, syncing, blockNumber, gasPrice, peers);
+        return Objects.hash(clientVersion, protocolVersion, listening, peerCount, syncing, blockNumber, gasPrice, diskStats, peers);
     }
 }
