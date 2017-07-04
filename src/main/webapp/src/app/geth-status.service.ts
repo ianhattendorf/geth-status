@@ -58,7 +58,7 @@ export class GethStatusService {
     this.gethStatus.gasPrice = data.gasPrice.toLocaleString();
     this.gethStatus.diskStats = data.diskStats;
     this.gethStatus.peers = data.peers;
-    this.gethStatus.lastUpdated = moment().format('DD MMM YYYY HH:mm:ss');
+    this.gethStatus.lastUpdated = moment();
   }
 
   private onStompError(error) : void {

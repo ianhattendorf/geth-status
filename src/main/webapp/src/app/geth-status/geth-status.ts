@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 import {GethPeer} from "./geth-peer";
 import {DiskStats} from "./disk-stats";
 
@@ -11,5 +13,5 @@ export class GethStatus {
   gasPrice: number;
   peers: GethPeer[];
   diskStats: DiskStats;
-  lastUpdated: string;
+  lastUpdated: Moment;
 }

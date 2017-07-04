@@ -1,4 +1,5 @@
 import { GethStatus } from './geth-status/geth-status'
+import * as moment from 'moment';
 
 export const GETH_STATUS: GethStatus = {
   clientVersion: 'Geth/v1.6.6-stable-10a45cb5/linux-amd64/go1.8.3',
@@ -9,7 +10,7 @@ export const GETH_STATUS: GethStatus = {
   blockNumber: 3964606,
   gasPrice: 20000000000,
   peers: [],
-  lastUpdated: '02 Jul 2017 14:07:39',
+  lastUpdated: moment(),
   diskStats: {
     usedGB: '123',
     totalGB: '321'
