@@ -10,6 +10,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @Service
 public class FreeGeoService implements GeoService {
@@ -28,11 +30,11 @@ public class FreeGeoService implements GeoService {
     public GeoInfo getInfo(String ip) {
         try {
             logger.debug("Fetching geo IP info: {}", ip);
-            return freeGeoApi.getInfo(ip).get().toGeoInfo();
+            return freeGeoApi.getInfo(ip).get(5, TimeUnit.SECONDS).toGeoInfo();
         } catch (InterruptedException e) {
             logger.error("Thread interrupted while loading geo ip", e);
             Thread.currentThread().interrupt();
-        } catch (ExecutionException e) {
+        } catch (ExecutionException | TimeoutException e) {
             logger.error("Exception loading geo ip", e);
         }
         return new GeoInfo();
