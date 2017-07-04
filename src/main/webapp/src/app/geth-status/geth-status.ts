@@ -4,6 +4,7 @@ import {GethPeer} from "./geth-peer";
 import {DiskStats} from "./disk-stats";
 
 export class GethStatus {
+  publicIp: string;
   clientVersion: string;
   protocolVersion: number;
   listening: boolean;

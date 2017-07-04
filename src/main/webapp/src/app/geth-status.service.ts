@@ -49,6 +49,7 @@ export class GethStatusService {
     const data = JSON.parse(message.body)
     console.log("received: ", message, data)
 
+    this.gethStatus.publicIp = data.publicIp;
     this.gethStatus.clientVersion = data.clientVersion;
     this.gethStatus.protocolVersion = data.protocolVersion;
     this.gethStatus.listening = data.listening;

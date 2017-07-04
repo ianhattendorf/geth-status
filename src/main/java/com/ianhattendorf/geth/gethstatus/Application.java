@@ -4,9 +4,8 @@ import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.ProxyUtil;
 import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
 import com.ianhattendorf.geth.gethstatus.domain.FreeGeoApi;
-import com.ianhattendorf.geth.gethstatus.service.GeoService;
-import com.ianhattendorf.geth.gethstatus.service.GethService;
-import com.ianhattendorf.geth.gethstatus.service.RpcGethService;
+import com.ianhattendorf.geth.gethstatus.domain.IpifyApi;
+import com.ianhattendorf.geth.gethstatus.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
@@ -56,7 +55,7 @@ public class Application {
     }
 
     @Bean
-    public Retrofit retrofit() {
+    public Retrofit freeGeoApiRetrofit() {
         return new Retrofit.Builder()
                 .baseUrl("https://freegeoip.net")
                 .addConverterFactory(JacksonConverterFactory.create())
@@ -65,8 +64,27 @@ public class Application {
     }
 
     @Bean
-    public FreeGeoApi geoService(Retrofit retrofit) {
-        return retrofit.create(FreeGeoApi.class);
+    public FreeGeoApi geoService(Retrofit freeGeoApiRetrofit) {
+        return freeGeoApiRetrofit.create(FreeGeoApi.class);
+    }
+
+    @Bean
+    public Retrofit ipifyApiRetrofit() {
+        return new Retrofit.Builder()
+                .baseUrl("https://api.ipify.org")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(Java8CallAdapterFactory.create())
+                .build();
+    }
+
+    @Bean
+    public IpifyApi ipifyApi(Retrofit ipifyApiRetrofit) {
+        return ipifyApiRetrofit.create(IpifyApi.class);
+    }
+
+    @Bean
+    public PublicIpService publicIpService(IpifyApi ipifyApi) {
+        return new IpifyPublicIpService(ipifyApi);
     }
 
     @Bean
