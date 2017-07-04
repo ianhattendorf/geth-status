@@ -1,5 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class GethPeer {
     private List<String> caps;
     private GethPeer.Network network;
 
+    @JsonIgnore
     public String getId() {
         return id;
     }
@@ -28,6 +30,7 @@ public class GethPeer {
         this.name = name;
     }
 
+    @JsonIgnore
     public List<String> getCaps() {
         return caps;
     }
@@ -74,8 +77,9 @@ public class GethPeer {
     public static class Network {
         private String localAddress;
         private String remoteAddress;
-        private FreeGeoInfo remoteGeoInfo;
+        private GeoInfo remoteGeoInfo;
 
+        @JsonIgnore
         public String getLocalAddress() {
             return localAddress;
         }
@@ -92,11 +96,11 @@ public class GethPeer {
             this.remoteAddress = remoteAddress;
         }
 
-        public FreeGeoInfo getRemoteGeoInfo() {
+        public GeoInfo getRemoteGeoInfo() {
             return remoteGeoInfo;
         }
 
-        public void setRemoteGeoInfo(FreeGeoInfo remoteGeoInfo) {
+        public void setRemoteGeoInfo(GeoInfo remoteGeoInfo) {
             this.remoteGeoInfo = remoteGeoInfo;
         }
 

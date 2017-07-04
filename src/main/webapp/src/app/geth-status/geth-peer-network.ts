@@ -1,7 +1,6 @@
-import {FreeGeoInfo} from "./free-geo-info";
+import {GeoInfo} from "./geo-info";
 
 export class GethPeerNetwork {
-  localAddress: string;
   remoteAddress: string;
-  remoteGeoInfo: FreeGeoInfo;
+  remoteGeoInfo: GeoInfo;
 }

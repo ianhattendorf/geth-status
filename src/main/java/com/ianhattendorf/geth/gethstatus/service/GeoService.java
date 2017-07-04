@@ -1,7 +1,7 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
+import com.ianhattendorf.geth.gethstatus.domain.GeoInfo;
 
 public interface GeoService {
-    FreeGeoInfo getInfo(String ip);
+    GeoInfo getInfo(String ip);
 }

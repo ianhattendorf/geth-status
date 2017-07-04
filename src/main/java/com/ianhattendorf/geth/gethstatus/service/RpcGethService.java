@@ -1,6 +1,7 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
 import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
+import com.ianhattendorf.geth.gethstatus.domain.GeoInfo;
 import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
 import org.slf4j.Logger;
@@ -73,7 +74,7 @@ public class RpcGethService implements GethService {
             GethPeer.Network network = gethPeer.getNetwork();
             network.setRemoteAddress(ipTrimPort(network.getRemoteAddress()));
 
-            FreeGeoInfo info = geoService.getInfo(network.getRemoteAddress());
+            GeoInfo info = geoService.getInfo(network.getRemoteAddress());
             gethPeer.getNetwork().setRemoteGeoInfo(info);
         });
         return peers;

@@ -2,6 +2,7 @@ package com.ianhattendorf.geth.gethstatus.service;
 
 import com.ianhattendorf.geth.gethstatus.domain.FreeGeoApi;
 import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
+import com.ianhattendorf.geth.gethstatus.domain.GeoInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +25,16 @@ public class FreeGeoService implements GeoService {
 
     @Cacheable("freeGeoInfo")
     @Override
-    public FreeGeoInfo getInfo(String ip) {
+    public GeoInfo getInfo(String ip) {
         try {
             logger.debug("Fetching geo IP info: {}", ip);
-            return freeGeoApi.getInfo(ip).get();
+            return freeGeoApi.getInfo(ip).get().toGeoInfo();
         } catch (InterruptedException e) {
             logger.error("Thread interrupted while loading geo ip", e);
             Thread.currentThread().interrupt();
         } catch (ExecutionException e) {
             logger.error("Exception loading geo ip", e);
         }
-        FreeGeoInfo info = new FreeGeoInfo();
-        info.setIp("Unknown");
-        return info;
+        return new GeoInfo();
     }
 }

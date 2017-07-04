@@ -110,6 +110,13 @@ public class FreeGeoInfo {
         this.metroCode = metroCode;
     }
 
+    public GeoInfo toGeoInfo() {
+        GeoInfo geoInfo = new GeoInfo();
+        geoInfo.setCountryCode(countryCode);
+        geoInfo.setCountryName(countryName);
+        return geoInfo;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("FreeGeoInfo{");

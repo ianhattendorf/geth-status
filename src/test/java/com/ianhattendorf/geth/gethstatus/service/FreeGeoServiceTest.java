@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class FreeGeoServiceTest {
 
@@ -21,14 +22,17 @@ public class FreeGeoServiceTest {
     @Test
     public void geoServiceReturnsInfo() {
         FreeGeoInfo info = new FreeGeoInfo();
-        info.setIp("1.2.3.4");
+        info.setCountryCode("US");
+        info.setCountryName("United States");
         mockFreeGeoApi.setFreeGeoInfo(info);
-        assertEquals("1.2.3.4", geoService.getInfo("1.2.3.4").getIp());
+        assertEquals("US", geoService.getInfo("1.2.3.4").getCountryCode());
+        assertEquals("United States", geoService.getInfo("1.2.3.4").getCountryName());
     }
 
     @Test
     public void geoServiceReturnsUnknownIpWhenServiceIsDown() {
         mockFreeGeoApi.setThrowable(new Throwable());
-        assertEquals("Unknown", geoService.getInfo(null).getIp());
+        assertNull(geoService.getInfo(null).getCountryCode());
+        assertNull(geoService.getInfo(null).getCountryName());
     }
 }

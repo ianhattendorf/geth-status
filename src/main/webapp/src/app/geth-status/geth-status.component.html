@@ -77,7 +77,7 @@
     <tbody>
     <tr *ngFor="let peer of gethStatus?.peers; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td><img [src]="getFlagUrl(peer.network.remoteGeoInfo.country_code)" [title]="peer.network.remoteGeoInfo.country_name" [alt]="peer.network.remoteGeoInfo.country_name" class="flag"/> {{peer.network.remoteAddress}}</td>
+      <td><img [src]="getFlagUrl(peer.network.remoteGeoInfo.countryCode)" [title]="peer.network.remoteGeoInfo.countryName" [alt]="peer.network.remoteGeoInfo.countryName" class="flag"/> {{peer.network.remoteAddress}}</td>
       <td>{{peer.name}}</td>
     </tr>
     </tbody>
