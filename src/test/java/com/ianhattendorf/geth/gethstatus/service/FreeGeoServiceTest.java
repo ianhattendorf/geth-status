@@ -2,6 +2,7 @@ package com.ianhattendorf.geth.gethstatus.service;
 
 import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoInfo;
 import com.ianhattendorf.geth.gethstatus.domain.MockFreeGeoApi;
+import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ public class FreeGeoServiceTest {
 
     @Test
     public void geoServiceReturnsInfo() {
-        FreeGeoInfo info = new FreeGeoInfo();
+        val info = new FreeGeoInfo();
         info.setCountryCode("US");
         info.setCountryName("United States");
         mockFreeGeoApi.setFreeGeoInfo(info);

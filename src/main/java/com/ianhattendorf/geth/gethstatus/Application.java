@@ -6,6 +6,7 @@ import com.ianhattendorf.geth.gethstatus.domain.geth.transfer.GethRpcApi;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoApi;
 import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyApi;
 import com.ianhattendorf.geth.gethstatus.service.*;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
@@ -35,7 +36,7 @@ public class Application {
     public JsonRpcHttpClient jsonRpcHttpClient(@Value("${geth.rcp.endpoint:http://localhost:8545}") String gethRpcEndpoint) throws MalformedURLException {
         //You can add authentication headers etc to this map
         Map<String, String> map = new HashMap<>();
-        URL url = new URL(gethRpcEndpoint);
+        val url = new URL(gethRpcEndpoint);
         return new JsonRpcHttpClient(url, map);
     }
 

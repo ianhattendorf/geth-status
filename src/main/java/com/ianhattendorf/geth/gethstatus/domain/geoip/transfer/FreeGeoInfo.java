@@ -3,6 +3,7 @@ package com.ianhattendorf.geth.gethstatus.domain.geoip.transfer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
 import lombok.Data;
+import lombok.val;
 
 @Data
 public class FreeGeoInfo {
@@ -26,7 +27,7 @@ public class FreeGeoInfo {
     Integer metroCode;
 
     public GeoInfo toGeoInfo() {
-        GeoInfo geoInfo = new GeoInfo();
+        val geoInfo = new GeoInfo();
         geoInfo.setCountryCode(countryCode);
         geoInfo.setCountryName(countryName);
         return geoInfo;

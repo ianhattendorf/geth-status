@@ -1,6 +1,7 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
 import com.ianhattendorf.geth.gethstatus.domain.geth.GethStatus;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class CachingGethStatusService implements GethStatusService {
 
     @Override
     public GethStatus getGethStatus() {
-        Instant now = Instant.now();
+        val now = Instant.now();
         if (lastUpdated.plus(gethStatusCacheDuration).isBefore(now)) {
             synchronized (updateLock) {
                 if (lastUpdated.plus(gethStatusCacheDuration).isBefore(now)) {

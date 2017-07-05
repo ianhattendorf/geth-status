@@ -2,6 +2,7 @@ package com.ianhattendorf.geth.gethstatus.domain;
 
 import com.ianhattendorf.geth.gethstatus.domain.geth.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.geth.transfer.GethRpcApi;
+import lombok.val;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -67,9 +68,9 @@ public final class MockGethRpcApi implements GethRpcApi {
     @Override
     public List<GethPeer> adminPeers() {
         List<GethPeer> peers = new ArrayList<>();
-        GethPeer peer = new GethPeer();
+        val peer = new GethPeer();
         peer.setName("Geth1");
-        GethPeer.Network network = new GethPeer.Network();
+        val network = new GethPeer.Network();
         network.setRemoteAddress("1.2.3.4");
         peer.setNetwork(network);
         peers.add(peer);

@@ -3,6 +3,7 @@ package com.ianhattendorf.geth.gethstatus.service;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
 import com.ianhattendorf.geth.gethstatus.domain.geth.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.geth.transfer.GethRpcApi;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class RpcGethService implements GethService {
         Object syncing = gethRpcApi.ethSyncing();
         if (syncing instanceof Map) {
             @SuppressWarnings("unchecked")
-            Map<String, String> syncingMap = (Map<String, String>) syncing;
+            val syncingMap = (Map<String, String>) syncing;
             return syncingMap.toString();
         }
         return syncing.toString();

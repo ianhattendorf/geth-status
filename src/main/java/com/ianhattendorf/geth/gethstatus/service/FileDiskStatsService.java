@@ -1,6 +1,7 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
 import com.ianhattendorf.geth.gethstatus.domain.diskusage.DiskStats;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class FileDiskStatsService implements DiskStatsService {
 
     @Override
     public DiskStats getDiskStats() {
-        File file = new File(gethDataDir);
+        val file = new File(gethDataDir);
         long totalBytes = file.getTotalSpace();
         long usedBytes = file.getTotalSpace() - file.getFreeSpace();
         String totalGB = bytesToGBString(totalBytes);

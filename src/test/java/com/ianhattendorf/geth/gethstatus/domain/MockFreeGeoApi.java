@@ -2,6 +2,7 @@ package com.ianhattendorf.geth.gethstatus.domain;
 
 import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoApi;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoInfo;
+import lombok.val;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -29,7 +30,7 @@ public class MockFreeGeoApi implements FreeGeoApi {
     @Override
     public CompletableFuture<FreeGeoInfo> getInfo(String ip) {
         if (throwable != null) {
-            CompletableFuture<FreeGeoInfo> completableFuture = new CompletableFuture<>();
+            val completableFuture = new CompletableFuture<FreeGeoInfo>();
             completableFuture.completeExceptionally(throwable);
             return completableFuture;
         }

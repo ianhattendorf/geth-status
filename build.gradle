@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
     def retrofitVersion = '2.3.0'
+    def lombokVersion = '1.16.18'
 
     compile 'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-thymeleaf',
@@ -34,9 +35,11 @@ dependencies {
             "com.squareup.retrofit2:converter-jackson:$retrofitVersion",
             "com.squareup.retrofit2:adapter-java8:$retrofitVersion"
 
-    compileOnly 'org.projectlombok:lombok:1.16.18'
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
 }
 
 gradle.projectsEvaluated {

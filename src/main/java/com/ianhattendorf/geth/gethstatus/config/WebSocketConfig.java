@@ -1,5 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.config;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -25,7 +26,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        StompWebSocketEndpointRegistration registration = registry.addEndpoint("/ws");
+        val registration = registry.addEndpoint("/ws");
         if (environment.acceptsProfiles("dev")) {
             registration.setAllowedOrigins("*"); // can't wildcard port
         }
