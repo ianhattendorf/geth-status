@@ -56,15 +56,25 @@ task yarnInstall(type: Exec) {
     commandLine 'yarn', 'install'
 }
 
-task testClient(type: Exec) {
+task lintClient(type: Exec, dependsOn: yarnInstall) {
     workingDir webappDir
 
     commandLine 'yarn', 'run', 'lint'
+}
+
+task testClient(type: Exec, dependsOn: yarnInstall) {
+    workingDir webappDir
+
     commandLine 'yarn', 'run', 'test', '--single-run'
+}
+
+task e2eTestClient(type: Exec, dependsOn: yarnInstall) {
+    workingDir webappDir
+
     commandLine 'yarn', 'run', 'e2e'
 }
 
-task buildClient(type: Exec) {
+task buildClient(type: Exec, dependsOn: yarnInstall) {
     workingDir webappDir
 
     commandLine 'yarn', 'run', 'build', '--', '-prod'
@@ -168,9 +178,10 @@ task deploy {
     }
 }
 
-testClient.dependsOn yarnInstall
-buildClient.dependsOn yarnInstall
-//buildClient.dependsOn testClient // TODO fix client tests (headless browser, don't require live websocket)
+testClient.dependsOn lintClient
+e2eTestClient.dependsOn testClient
+buildClient.dependsOn lintClient
+//buildClient.dependsOn e2eTestClient // TODO fix client tests (headless browser, don't require live websocket)
 build.dependsOn buildClient
 processResources.dependsOn buildClient
 
