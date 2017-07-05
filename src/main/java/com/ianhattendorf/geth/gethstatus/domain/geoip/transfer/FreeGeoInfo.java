@@ -1,6 +1,7 @@
-package com.ianhattendorf.geth.gethstatus.domain;
+package com.ianhattendorf.geth.gethstatus.domain.geoip.transfer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
 
 public class FreeGeoInfo {
     private String ip;

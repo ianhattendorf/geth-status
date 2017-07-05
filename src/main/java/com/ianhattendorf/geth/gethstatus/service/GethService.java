@@ -1,6 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
+import com.ianhattendorf.geth.gethstatus.domain.geth.GethPeer;
 
 import java.util.List;
 

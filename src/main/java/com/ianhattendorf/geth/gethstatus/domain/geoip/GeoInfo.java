@@ -1,4 +1,4 @@
-package com.ianhattendorf.geth.gethstatus.domain;
+package com.ianhattendorf.geth.gethstatus.domain.geoip;
 
 public class GeoInfo {
 

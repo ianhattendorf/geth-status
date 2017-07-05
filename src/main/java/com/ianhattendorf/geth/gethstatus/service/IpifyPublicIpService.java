@@ -1,6 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.IpifyApi;
+import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;

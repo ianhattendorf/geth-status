@@ -1,5 +1,8 @@
 package com.ianhattendorf.geth.gethstatus.domain;
 
+import com.ianhattendorf.geth.gethstatus.domain.geth.GethPeer;
+import com.ianhattendorf.geth.gethstatus.domain.geth.transfer.GethRpcApi;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

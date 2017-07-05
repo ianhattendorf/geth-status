@@ -1,6 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.task;
 
-import com.ianhattendorf.geth.gethstatus.domain.GethStatus;
+import com.ianhattendorf.geth.gethstatus.domain.geth.GethStatus;
 import com.ianhattendorf.geth.gethstatus.service.GethStatusService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

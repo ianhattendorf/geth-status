@@ -1,7 +1,8 @@
-package com.ianhattendorf.geth.gethstatus.domain;
+package com.ianhattendorf.geth.gethstatus.domain.geth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
 
 import java.util.List;
 import java.util.Objects;

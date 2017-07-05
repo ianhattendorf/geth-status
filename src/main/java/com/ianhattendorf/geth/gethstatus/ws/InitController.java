@@ -1,6 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.ws;
 
-import com.ianhattendorf.geth.gethstatus.domain.GethStatus;
+import com.ianhattendorf.geth.gethstatus.domain.geth.GethStatus;
 import com.ianhattendorf.geth.gethstatus.service.GethStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;

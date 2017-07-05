@@ -2,9 +2,9 @@ package com.ianhattendorf.geth.gethstatus;
 
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.googlecode.jsonrpc4j.ProxyUtil;
-import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
-import com.ianhattendorf.geth.gethstatus.domain.FreeGeoApi;
-import com.ianhattendorf.geth.gethstatus.domain.IpifyApi;
+import com.ianhattendorf.geth.gethstatus.domain.geth.transfer.GethRpcApi;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoApi;
+import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyApi;
 import com.ianhattendorf.geth.gethstatus.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.*;

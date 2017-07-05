@@ -1,6 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.DiskStats;
+import com.ianhattendorf.geth.gethstatus.domain.diskusage.DiskStats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

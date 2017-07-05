@@ -1,7 +1,7 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
-import com.ianhattendorf.geth.gethstatus.domain.GethPeer;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoInfo;
+import com.ianhattendorf.geth.gethstatus.domain.geth.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.MockFreeGeoApi;
 import com.ianhattendorf.geth.gethstatus.domain.MockGethRpcApi;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package com.ianhattendorf.geth.gethstatus.domain;
+package com.ianhattendorf.geth.gethstatus.domain.publicip.transfer;
 
 import retrofit2.http.GET;
 

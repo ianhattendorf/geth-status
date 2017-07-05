@@ -1,6 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoInfo;
 import com.ianhattendorf.geth.gethstatus.domain.MockFreeGeoApi;
 import org.junit.Before;
 import org.junit.Test;

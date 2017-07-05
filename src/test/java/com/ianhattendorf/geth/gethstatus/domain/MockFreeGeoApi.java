@@ -1,5 +1,8 @@
 package com.ianhattendorf.geth.gethstatus.domain;
 
+import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoApi;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoInfo;
+
 import java.util.concurrent.CompletableFuture;
 
 public class MockFreeGeoApi implements FreeGeoApi {

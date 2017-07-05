@@ -1,5 +1,8 @@
 package com.ianhattendorf.geth.gethstatus.domain;
 
+import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyApi;
+import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyPublicIpInfo;
+
 import java.util.concurrent.CompletableFuture;
 
 public class MockIpifyApi implements IpifyApi {

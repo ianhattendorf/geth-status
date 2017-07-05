@@ -1,5 +1,6 @@
-package com.ianhattendorf.geth.gethstatus.domain;
+package com.ianhattendorf.geth.gethstatus.domain.geth;
 
+import com.ianhattendorf.geth.gethstatus.domain.diskusage.DiskStats;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 
 import java.util.List;

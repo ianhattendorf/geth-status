@@ -1,6 +1,9 @@
 package com.ianhattendorf.geth.gethstatus;
 
 import com.ianhattendorf.geth.gethstatus.domain.*;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoApi;
+import com.ianhattendorf.geth.gethstatus.domain.geth.transfer.GethRpcApi;
+import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyApi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

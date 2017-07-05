@@ -1,6 +1,7 @@
-package com.ianhattendorf.geth.gethstatus.domain;
+package com.ianhattendorf.geth.gethstatus.domain.geth.transfer;
 
 import com.googlecode.jsonrpc4j.JsonRpcMethod;
+import com.ianhattendorf.geth.gethstatus.domain.geth.GethPeer;
 
 import java.util.List;
 

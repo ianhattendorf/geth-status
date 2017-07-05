@@ -1,6 +1,6 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.IpifyPublicIpInfo;
+import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyPublicIpInfo;
 import com.ianhattendorf.geth.gethstatus.domain.MockIpifyApi;
 import org.junit.Before;
 import org.junit.Test;

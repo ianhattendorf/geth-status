@@ -1,4 +1,4 @@
-package com.ianhattendorf.geth.gethstatus.domain;
+package com.ianhattendorf.geth.gethstatus.domain.publicip.transfer;
 
 public class IpifyPublicIpInfo {
     private String ip;

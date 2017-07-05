@@ -1,8 +1,7 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.FreeGeoApi;
-import com.ianhattendorf.geth.gethstatus.domain.FreeGeoInfo;
-import com.ianhattendorf.geth.gethstatus.domain.GeoInfo;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoApi;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
