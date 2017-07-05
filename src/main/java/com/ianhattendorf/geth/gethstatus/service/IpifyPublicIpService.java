@@ -1,17 +1,15 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
 import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyApi;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+@Slf4j
 public class IpifyPublicIpService implements PublicIpService {
-
-    private static final Logger logger = LoggerFactory.getLogger(IpifyPublicIpService.class);
 
     private final IpifyApi ipifyApi;
 
@@ -23,13 +21,13 @@ public class IpifyPublicIpService implements PublicIpService {
     @Override
     public String getPublicIp() {
         try {
-            logger.debug("Fetching public ip");
+            log.debug("Fetching public ip");
             return ipifyApi.getIp().get(5, TimeUnit.SECONDS).getIp();
         } catch (InterruptedException e) {
-            logger.error("Thread interrupted while fetching public ip", e);
+            log.error("Thread interrupted while fetching public ip", e);
             Thread.currentThread().interrupt();
         } catch (ExecutionException | TimeoutException e) {
-            logger.error("Exception fetching public ip", e);
+            log.error("Exception fetching public ip", e);
         }
         return "Unknown";
     }

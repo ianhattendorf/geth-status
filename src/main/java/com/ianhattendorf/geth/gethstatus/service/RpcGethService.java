@@ -4,8 +4,6 @@ import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
 import com.ianhattendorf.geth.gethstatus.domain.geth.GethPeer;
 import com.ianhattendorf.geth.gethstatus.domain.geth.transfer.GethRpcApi;
 import lombok.val;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +12,6 @@ import java.util.Map;
 
 @Service
 public class RpcGethService implements GethService {
-
-    private static final Logger logger = LoggerFactory.getLogger(RpcGethService.class);
 
     private final GethRpcApi gethRpcApi;
     private final GeoService geoService;

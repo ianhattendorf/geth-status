@@ -2,8 +2,7 @@ package com.ianhattendorf.geth.gethstatus.task;
 
 import com.ianhattendorf.geth.gethstatus.domain.geth.GethStatus;
 import com.ianhattendorf.geth.gethstatus.service.GethStatusService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -14,10 +13,9 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
 @Component
 public class UpdateClients {
-
-    private static final Logger logger = LoggerFactory.getLogger(UpdateClients.class);
 
     private final GethStatusService gethStatusService;
     private final SimpMessagingTemplate template;
@@ -35,31 +33,31 @@ public class UpdateClients {
     @Scheduled(fixedDelayString = "${geth.stomp.updateCheckDelay}")
     public void sendUpdate() {
         if (numConnected.get() == 0) {
-            logger.trace("no clients connected, not sending update");
+            log.trace("no clients connected, not sending update");
             return;
         }
 
         GethStatus newGethStatus = gethStatusService.getGethStatus();
         if (newGethStatus.equals(gethStatus)) {
             // only send update if gethStatus changed
-            logger.trace("retreived statuses are the same, not sending update");
+            log.trace("retreived statuses are the same, not sending update");
             return;
         }
         gethStatus = newGethStatus;
 
         template.convertAndSend("/topic/status", gethStatus);
-        logger.trace("sent update, {} connected client(s)", numConnected);
+        log.trace("sent update, {} connected client(s)", numConnected);
     }
 
     @EventListener
     public void handleSessionConnectEvent(SessionConnectEvent event) {
         int clientNumber = numConnected.incrementAndGet();
-        logger.debug("Client connected, {} currently connected", clientNumber);
+        log.debug("Client connected, {} currently connected", clientNumber);
     }
 
     @EventListener
     public void handleSessionDisconnectEvent(SessionDisconnectEvent event) {
         int clientNumber = numConnected.decrementAndGet();
-        logger.debug("Client disconnected, {} remaining", clientNumber);
+        log.debug("Client disconnected, {} remaining", clientNumber);
     }
 }
