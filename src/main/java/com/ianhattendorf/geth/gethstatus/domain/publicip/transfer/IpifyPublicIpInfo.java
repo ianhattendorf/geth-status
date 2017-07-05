@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class IpifyPublicIpInfo {
-    private String ip;
+    String ip;
 }

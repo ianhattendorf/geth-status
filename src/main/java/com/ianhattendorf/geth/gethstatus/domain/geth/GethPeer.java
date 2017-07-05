@@ -11,10 +11,10 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties("protocols")
 public class GethPeer {
-    private String id;
-    private String name;
-    private List<String> caps;
-    private GethPeer.Network network;
+    String id;
+    String name;
+    List<String> caps;
+    GethPeer.Network network;
 
     @JsonIgnore
     public String getId() {
@@ -29,9 +29,9 @@ public class GethPeer {
     @Data
     @EqualsAndHashCode(exclude = {"remoteGeoInfo"})
     public static class Network {
-        private String localAddress;
-        private String remoteAddress;
-        private GeoInfo remoteGeoInfo;
+        String localAddress;
+        String remoteAddress;
+        GeoInfo remoteGeoInfo;
 
         @JsonIgnore
         public String getLocalAddress() {
