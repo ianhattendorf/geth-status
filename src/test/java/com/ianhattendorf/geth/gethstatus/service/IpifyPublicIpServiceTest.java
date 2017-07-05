@@ -20,8 +20,7 @@ public class IpifyPublicIpServiceTest {
 
     @Test
     public void ipifyPublicIpServiceReturnsInfo() {
-        IpifyPublicIpInfo info = new IpifyPublicIpInfo();
-        info.setIp("1.2.3.4");
+        IpifyPublicIpInfo info = new IpifyPublicIpInfo("1.2.3.4");
         mockIpifyApi.setInfo(info);
         assertEquals("1.2.3.4", publicIpService.getPublicIp());
     }

@@ -2,10 +2,11 @@ package com.ianhattendorf.geth.gethstatus.domain.geoip.transfer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
-import lombok.Data;
-import lombok.val;
+import lombok.Builder;
+import lombok.Value;
 
-@Data
+@Builder
+@Value
 public class FreeGeoInfo {
     String ip;
     @JsonProperty("country_code")
@@ -27,9 +28,9 @@ public class FreeGeoInfo {
     Integer metroCode;
 
     public GeoInfo toGeoInfo() {
-        val geoInfo = new GeoInfo();
-        geoInfo.setCountryCode(countryCode);
-        geoInfo.setCountryName(countryName);
-        return geoInfo;
+        return GeoInfo.builder()
+                .countryCode(countryCode)
+                .countryName(countryName)
+                .build();
     }
 }

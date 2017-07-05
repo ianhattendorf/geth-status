@@ -1,8 +1,8 @@
 package com.ianhattendorf.geth.gethstatus.domain.publicip.transfer;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class IpifyPublicIpInfo {
     String ip;
 }

@@ -34,6 +34,6 @@ public class FreeGeoService implements GeoService {
         } catch (ExecutionException | TimeoutException e) {
             log.error("Exception loading geo ip", e);
         }
-        return new GeoInfo();
+        return GeoInfo.builder().build();
     }
 }

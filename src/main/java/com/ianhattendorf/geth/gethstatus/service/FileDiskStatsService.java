@@ -27,7 +27,10 @@ public class FileDiskStatsService implements DiskStatsService {
         long usedBytes = file.getTotalSpace() - file.getFreeSpace();
         String totalGB = bytesToGBString(totalBytes);
         String usedGB = bytesToGBString(usedBytes);
-        return new DiskStats(usedGB, totalGB);
+        return DiskStats.builder()
+                .totalGB(totalGB)
+                .usedGB(usedGB)
+                .build();
     }
 
     private String bytesToGBString(long bytes) {

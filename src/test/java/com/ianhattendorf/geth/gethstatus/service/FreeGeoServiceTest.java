@@ -22,9 +22,10 @@ public class FreeGeoServiceTest {
 
     @Test
     public void geoServiceReturnsInfo() {
-        val info = new FreeGeoInfo();
-        info.setCountryCode("US");
-        info.setCountryName("United States");
+        val info = FreeGeoInfo.builder()
+                .countryCode("US")
+                .countryName("United States")
+                .build();
         mockFreeGeoApi.setFreeGeoInfo(info);
         assertEquals("US", geoService.getInfo("1.2.3.4").getCountryCode());
         assertEquals("United States", geoService.getInfo("1.2.3.4").getCountryName());

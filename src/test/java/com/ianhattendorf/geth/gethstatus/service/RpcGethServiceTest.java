@@ -69,7 +69,7 @@ public class RpcGethServiceTest {
 
     @Test
     public void testGetPeers() {
-        mockFreeGeoApi.setFreeGeoInfo(new FreeGeoInfo());
+        mockFreeGeoApi.setFreeGeoInfo(FreeGeoInfo.builder().build());
         List<GethPeer> peers = rpcGethService.getPeers();
         assertEquals(1, peers.size());
         assertEquals("Geth1", peers.get(0).getName());

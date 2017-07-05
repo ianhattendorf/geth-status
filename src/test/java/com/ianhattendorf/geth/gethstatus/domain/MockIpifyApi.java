@@ -11,8 +11,7 @@ public class MockIpifyApi implements IpifyApi {
     private Throwable throwable;
 
     public MockIpifyApi() {
-        info = new IpifyPublicIpInfo();
-        info.setIp("1.2.3.4");
+        info = new IpifyPublicIpInfo("1.2.3.4");
     }
 
     public IpifyPublicIpInfo getInfo() {
