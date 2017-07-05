@@ -1,4 +1,4 @@
-import {GethPeerNetwork} from "./geth-peer-network";
+import {GethPeerNetwork} from './geth-peer-network';
 
 export class GethPeer {
   id: string;

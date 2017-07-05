@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 
-import {GethPeer} from "./geth-peer";
-import {DiskStats} from "./disk-stats";
+import {GethPeer} from './geth-peer';
+import {DiskStats} from './disk-stats';
 
 export class GethStatus {
   publicIp: string;

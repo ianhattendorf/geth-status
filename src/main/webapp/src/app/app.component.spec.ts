@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import {GethStatusComponent} from "./geth-status/geth-status.component";
+import {GethStatusComponent} from './geth-status/geth-status.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

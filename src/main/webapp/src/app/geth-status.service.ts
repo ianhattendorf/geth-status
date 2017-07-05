@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class GethStatusService {
 
-  private contextRoot: string = ''; // TODO fetch somehow?
+  private contextRoot = ''; // TODO fetch somehow?
   private gethStatus: GethStatus = new GethStatus();
 
   constructor() {
@@ -47,7 +47,7 @@ export class GethStatusService {
 
   private onStatusMessageReceived(message): void {
     const data = JSON.parse(message.body)
-    console.log("received: ", message, data)
+    console.log('received: ', message, data)
 
     this.gethStatus.publicIp = data.publicIp;
     this.gethStatus.clientVersion = data.clientVersion;
@@ -62,7 +62,7 @@ export class GethStatusService {
     this.gethStatus.lastUpdated = moment();
   }
 
-  private onStompError(error) : void {
+  private onStompError(error): void {
     console.log('STOMP: ' + error);
     setTimeout(this.stompConnect.bind(this), 10000);
     console.log('STOMP: Reconnecting in 10 seconds...');
