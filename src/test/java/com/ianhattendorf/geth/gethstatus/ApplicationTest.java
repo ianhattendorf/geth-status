@@ -1,7 +1,6 @@
 package com.ianhattendorf.geth.gethstatus;
 
-import com.ianhattendorf.geth.gethstatus.domain.GethRpcApi;
-import com.ianhattendorf.geth.gethstatus.domain.MockGethRpcApi;
+import com.ianhattendorf.geth.gethstatus.domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,16 @@ public class ApplicationTest {
         @Bean
         public GethRpcApi gethRpcApi() {
             return new MockGethRpcApi();
+        }
+
+        @Bean
+        public FreeGeoApi freeGeoApi() {
+            return new MockFreeGeoApi();
+        }
+
+        @Bean
+        public IpifyApi ipifyApi() {
+            return new MockIpifyApi();
         }
     }
 
