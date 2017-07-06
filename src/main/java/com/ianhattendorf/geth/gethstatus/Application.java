@@ -40,7 +40,7 @@ public class Application {
     }
 
     @Bean
-    public GethRpcApi exampleClientAPI(JsonRpcHttpClient jsonRpcHttpClient) {
+    public GethRpcApi gethRpcApi(JsonRpcHttpClient jsonRpcHttpClient) {
         return ProxyUtil.createClientProxy(getClass().getClassLoader(), GethRpcApi.class, jsonRpcHttpClient);
     }
 
