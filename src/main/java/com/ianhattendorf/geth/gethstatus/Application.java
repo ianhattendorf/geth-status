@@ -69,9 +69,9 @@ public class Application {
     }
 
     @Bean
-    public Retrofit ipifyApiRetrofit() {
+    public Retrofit ipifyApiRetrofit(@Value("${ipify.endpoint:https://api.ipify.org}") String ipifyEndpoint) {
         return new Retrofit.Builder()
-                .baseUrl("https://api.ipify.org")
+                .baseUrl(ipifyEndpoint)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(Java8CallAdapterFactory.create())
                 .build();

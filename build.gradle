@@ -34,7 +34,8 @@ dependencies {
             "com.squareup.retrofit2:converter-jackson:$retrofitVersion",
             "com.squareup.retrofit2:adapter-java8:$retrofitVersion"
 
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.boot:spring-boot-starter-test',
+            'com.github.tomakehurst:wiremock:2.6.0'
 }
 
 gradle.projectsEvaluated {
