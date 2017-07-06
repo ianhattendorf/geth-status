@@ -24,7 +24,7 @@ public class IpifyPublicIpService implements PublicIpService {
     public String getPublicIp() {
         try {
             logger.debug("Fetching public ip");
-            return ipifyApi.getIp().get(5, TimeUnit.SECONDS).getIp();
+            return ipifyApi.getIp().get(30, TimeUnit.SECONDS).getIp();
         } catch (InterruptedException e) {
             logger.error("Thread interrupted while fetching public ip", e);
             Thread.currentThread().interrupt();

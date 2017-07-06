@@ -32,7 +32,7 @@ public class FreeGeoService implements GeoService {
         }
         try {
             logger.debug("Fetching geo IP info: {}", ip);
-            return freeGeoApi.getInfo(ip).get(5, TimeUnit.SECONDS).toGeoInfo();
+            return freeGeoApi.getInfo(ip).get(30, TimeUnit.SECONDS).toGeoInfo();
         } catch (InterruptedException e) {
             logger.error("Thread interrupted while loading geo ip", e);
             Thread.currentThread().interrupt();
