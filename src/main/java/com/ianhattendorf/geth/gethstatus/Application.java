@@ -55,9 +55,9 @@ public class Application {
     }
 
     @Bean
-    public Retrofit freeGeoApiRetrofit() {
+    public Retrofit freeGeoApiRetrofit(@Value("${freeGeo.endpoint:https://freegeoip.net}") String freeGeoEndpoint) {
         return new Retrofit.Builder()
-                .baseUrl("https://freegeoip.net")
+                .baseUrl(freeGeoEndpoint)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(Java8CallAdapterFactory.create())
                 .build();

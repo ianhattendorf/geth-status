@@ -27,6 +27,9 @@ public class FreeGeoService implements GeoService {
     @Cacheable("freeGeoInfo")
     @Override
     public GeoInfo getInfo(String ip) {
+        if (ip == null) {
+            ip = "";
+        }
         try {
             logger.debug("Fetching geo IP info: {}", ip);
             return freeGeoApi.getInfo(ip).get(5, TimeUnit.SECONDS).toGeoInfo();
