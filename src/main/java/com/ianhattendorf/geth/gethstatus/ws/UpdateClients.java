@@ -1,4 +1,4 @@
-package com.ianhattendorf.geth.gethstatus.task;
+package com.ianhattendorf.geth.gethstatus.ws;
 
 import com.ianhattendorf.geth.gethstatus.domain.geth.GethStatus;
 import com.ianhattendorf.geth.gethstatus.service.GethStatusService;

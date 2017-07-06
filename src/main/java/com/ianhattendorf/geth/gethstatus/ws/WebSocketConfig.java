@@ -1,4 +1,4 @@
-package com.ianhattendorf.geth.gethstatus.config;
+package com.ianhattendorf.geth.gethstatus.ws;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
