@@ -1,7 +1,9 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyPublicIpInfo;
-import com.ianhattendorf.geth.gethstatus.domain.MockIpifyApi;
+import com.ianhattendorf.geth.gethstatus.Application;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,26 +11,38 @@ import static org.junit.Assert.assertEquals;
 
 public class IpifyPublicIpServiceTest {
 
-    private MockIpifyApi mockIpifyApi;
+    private MockWebServer server;
     private PublicIpService publicIpService;
 
     @Before
     public void setUp() {
-        mockIpifyApi = new MockIpifyApi();
-        publicIpService = new IpifyPublicIpService(mockIpifyApi);
+        server = new MockWebServer();
+        String baseUrl = server.url("/").toString();
+        Application application = new Application();
+        publicIpService = new IpifyPublicIpService(application.ipifyApi(application.ipifyApiRetrofit(baseUrl)));
     }
 
     @Test
-    public void ipifyPublicIpServiceReturnsInfo() {
-        IpifyPublicIpInfo info = new IpifyPublicIpInfo();
-        info.setIp("1.2.3.4");
-        mockIpifyApi.setInfo(info);
+    public void ipifyPublicIpServiceReturnsInfo() throws InterruptedException {
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setHeader("Content-Type", "application/json")
+                .setBody("{\"ip\":\"1.2.3.4\"}"));
+
         assertEquals("1.2.3.4", publicIpService.getPublicIp());
+
+        RecordedRequest request = server.takeRequest();
+        assertEquals("/?format=json", request.getPath());
     }
 
     @Test
-    public void ipifyPublicIpServiceReturnsUnknownIpWhenServiceIsDown() {
-        mockIpifyApi.setThrowable(new Throwable());
+    public void ipifyPublicIpServiceReturnsUnknownIpWhenServiceIsDown() throws InterruptedException {
+        server.enqueue(new MockResponse()
+                .setResponseCode(500));
+
         assertEquals("Unknown", publicIpService.getPublicIp());
+
+        RecordedRequest request = server.takeRequest();
+        assertEquals("/?format=json", request.getPath());
     }
 }

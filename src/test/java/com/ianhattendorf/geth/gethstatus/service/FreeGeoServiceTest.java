@@ -1,38 +1,73 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
-import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoInfo;
-import com.ianhattendorf.geth.gethstatus.domain.MockFreeGeoApi;
+import com.ianhattendorf.geth.gethstatus.Application;
+import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.ianhattendorf.geth.gethstatus.TestHelper.loadResponseBody;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class FreeGeoServiceTest {
 
-    private MockFreeGeoApi mockFreeGeoApi;
+    private MockWebServer server;
     private GeoService geoService;
 
     @Before
     public void setUp() {
-        mockFreeGeoApi = new MockFreeGeoApi();
-        geoService = new FreeGeoService(mockFreeGeoApi);
+        server = new MockWebServer();
+        String baseUrl = server.url("/").toString();
+        Application application = new Application();
+        geoService = new FreeGeoService(application.geoService(application.freeGeoApiRetrofit(baseUrl)));
     }
 
     @Test
-    public void geoServiceReturnsInfo() {
-        FreeGeoInfo info = new FreeGeoInfo();
-        info.setCountryCode("US");
-        info.setCountryName("United States");
-        mockFreeGeoApi.setFreeGeoInfo(info);
-        assertEquals("US", geoService.getInfo("1.2.3.4").getCountryCode());
-        assertEquals("United States", geoService.getInfo("1.2.3.4").getCountryName());
+    public void freeGeoServiceReturnsServerInfo() throws InterruptedException {
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setHeader("Content-Type", "application/json")
+                .setBody(loadResponseBody("service/free-geo.json")));
+
+        GeoInfo info = geoService.getInfo(null);
+
+        assertEquals("US", info.getCountryCode());
+        assertEquals("United States", info.getCountryName());
+
+        RecordedRequest request = server.takeRequest();
+        assertEquals("/json/", request.getPath());
     }
 
     @Test
-    public void geoServiceReturnsUnknownIpWhenServiceIsDown() {
-        mockFreeGeoApi.setThrowable(new Throwable());
-        assertNull(geoService.getInfo(null).getCountryCode());
-        assertNull(geoService.getInfo(null).getCountryName());
+    public void freeGeoServiceReturnsSpecifiedIpInfo() throws InterruptedException {
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setHeader("Content-Type", "application/json")
+                .setBody(loadResponseBody("service/free-geo.json")));
+
+        GeoInfo info = geoService.getInfo("1.2.3.4");
+
+        assertEquals("US", info.getCountryCode());
+        assertEquals("United States", info.getCountryName());
+
+        RecordedRequest request = server.takeRequest();
+        assertEquals("/json/1.2.3.4", request.getPath());
+    }
+
+    @Test
+    public void freeGeoServiceReturnsEmptyInfoWhenServiceIsDown() throws InterruptedException {
+        server.enqueue(new MockResponse()
+                .setResponseCode(500));
+
+        GeoInfo info = geoService.getInfo(null);
+
+        assertNull(info.getCountryCode());
+        assertNull(info.getCountryName());
+
+        RecordedRequest request = server.takeRequest();
+        assertEquals("/json/", request.getPath());
     }
 }
