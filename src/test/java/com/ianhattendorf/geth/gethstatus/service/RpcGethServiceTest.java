@@ -2,6 +2,7 @@ package com.ianhattendorf.geth.gethstatus.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ianhattendorf.geth.gethstatus.Application;
+import com.ianhattendorf.geth.gethstatus.TestHelper;
 import com.ianhattendorf.geth.gethstatus.domain.MockFreeGeoApi;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoInfo;
 import com.ianhattendorf.geth.gethstatus.domain.geth.GethPeer;
@@ -23,16 +24,13 @@ import static org.junit.Assert.assertNull;
 
 public class RpcGethServiceTest {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     private MockWebServer server;
     private MockFreeGeoApi mockFreeGeoApi;
     private GethService rpcGethService;
 
     @Before
-    public void setUp() throws MalformedURLException {
-        server = new MockWebServer();
-        server.setDispatcher(new RpcDispatcher(false));
+    public void setUp() throws IOException {
+        server = TestHelper.initMockServer(0, new RpcDispatcher(false));
         String baseUrl = server.url("/").toString();
         Application application = new Application();
         GethRpcApi gethRpcApi = application.gethRpcApi(application.jsonRpcHttpClient(baseUrl));
@@ -134,7 +132,9 @@ public class RpcGethServiceTest {
         }
     }
 
-    public class RpcDispatcher extends Dispatcher {
+    public static class RpcDispatcher extends Dispatcher {
+
+        private final ObjectMapper objectMapper = new ObjectMapper();
 
         private final boolean syncing;
 

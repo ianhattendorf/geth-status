@@ -1,7 +1,9 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
 import com.ianhattendorf.geth.gethstatus.Application;
+import com.ianhattendorf.geth.gethstatus.TestHelper;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
+import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -10,6 +12,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.ianhattendorf.geth.gethstatus.TestHelper.loadResponseBody;
 import static org.junit.Assert.assertEquals;
@@ -77,5 +81,33 @@ public class FreeGeoServiceTest {
 
         RecordedRequest request = server.takeRequest();
         assertEquals("/json/", request.getPath());
+    }
+
+    public static class FreeGeoDispatcher extends Dispatcher {
+
+        private static final Pattern ipPattern = Pattern.compile("\\/json\\/(\\d+\\.\\d+\\.\\d+\\.\\d+)");
+
+        @Override
+        public MockResponse dispatch(RecordedRequest request) {
+            if (!request.getMethod().equals("GET") || !request.getPath().startsWith("/json")) {
+                return new MockResponse().setResponseCode(404);
+            }
+
+            Matcher matcher = ipPattern.matcher(request.getPath());
+            String freeGeoBody = TestHelper.loadResponseBody("service/free-geo.json");
+            // no ip specified
+            if (matcher.groupCount() == 0) {
+                return new MockResponse()
+                        .setResponseCode(200)
+                        .setHeader("Content-Type", "application/json")
+                        .setBody(freeGeoBody);
+            }
+
+            // ip specified
+            return new MockResponse()
+                    .setResponseCode(200)
+                    .setHeader("Content-Type", "application/json")
+                    .setBody(String.format("{\"ip\":\"%s\"}", matcher.group(1)));
+        }
     }
 }

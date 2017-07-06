@@ -1,6 +1,8 @@
 package com.ianhattendorf.geth.gethstatus.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ianhattendorf.geth.gethstatus.Application;
+import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -52,5 +54,19 @@ public class IpifyPublicIpServiceTest {
 
         RecordedRequest request = server.takeRequest();
         assertEquals("/?format=json", request.getPath());
+    }
+
+    public static class IpifyPublicIpDispatcher extends Dispatcher {
+        @Override
+        public MockResponse dispatch(RecordedRequest request) {
+            if (!request.getMethod().equals("GET") || !request.getPath().equals("/format=json")) {
+                return new MockResponse().setResponseCode(404);
+            }
+
+            return new MockResponse()
+                    .setResponseCode(200)
+                    .setHeader("Content-Type", "application/json")
+                    .setBody("{\"ip\":\"1.2.3.4\"}");
+        }
     }
 }

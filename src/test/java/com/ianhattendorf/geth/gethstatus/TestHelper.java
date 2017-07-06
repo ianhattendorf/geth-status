@@ -1,5 +1,8 @@
 package com.ianhattendorf.geth.gethstatus;
 
+import okhttp3.mockwebserver.Dispatcher;
+import okhttp3.mockwebserver.MockWebServer;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -38,5 +41,22 @@ public final class TestHelper {
             // testing, let exception bubble up
             throw new RuntimeException(e);
         }
+    }
+
+
+    /**
+     * Initialize a mock web server.
+     * @param port Port to listen on, 0 for any available port.
+     * @param dispatcher Dispatcher to use.
+     * @return The initialized mock web server.
+     * @throws IOException Exception starting server.
+     */
+    public static MockWebServer initMockServer(int port, Dispatcher dispatcher) throws IOException {
+        MockWebServer mockWebServer = new MockWebServer();
+        mockWebServer.start(port);
+        if (dispatcher != null) {
+            mockWebServer.setDispatcher(dispatcher);
+        }
+        return mockWebServer;
     }
 }

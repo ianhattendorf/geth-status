@@ -32,7 +32,7 @@ public class Application {
     }
 
     @Bean
-    public JsonRpcHttpClient jsonRpcHttpClient(@Value("${geth.rcp.endpoint:http://localhost:8545}") String gethRpcEndpoint) throws MalformedURLException {
+    public JsonRpcHttpClient jsonRpcHttpClient(@Value("${geth.rpc.endpoint:http://localhost:8545}") String gethRpcEndpoint) throws MalformedURLException {
         //You can add authentication headers etc to this map
         Map<String, String> map = new HashMap<>();
         URL url = new URL(gethRpcEndpoint);

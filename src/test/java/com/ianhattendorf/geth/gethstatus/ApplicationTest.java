@@ -1,43 +1,43 @@
 package com.ianhattendorf.geth.gethstatus;
 
-import com.ianhattendorf.geth.gethstatus.domain.*;
-import com.ianhattendorf.geth.gethstatus.domain.geoip.transfer.FreeGeoApi;
-import com.ianhattendorf.geth.gethstatus.domain.geth.transfer.GethRpcApi;
-import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyApi;
-import org.junit.Test;
+import com.ianhattendorf.geth.gethstatus.service.FreeGeoServiceTest;
+import com.ianhattendorf.geth.gethstatus.service.IpifyPublicIpServiceTest;
+import com.ianhattendorf.geth.gethstatus.service.RpcGethServiceTest;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestConfiguration("classpath:test.properties")
 public class ApplicationTest {
 
-    @Configuration
-    @Import(Application.class)
-    public static class TestConfig {
-        @Bean
-        public GethRpcApi gethRpcApi() {
-            return new MockGethRpcApi();
-        }
+    private MockWebServer gethServer;
+    private MockWebServer ipifyPublicIpServer;
+    private MockWebServer freeGeoServer;
 
-        @Bean
-        public FreeGeoApi freeGeoApi() {
-            return new MockFreeGeoApi();
-        }
+    @Before
+    public void setUp() throws IOException {
+        gethServer = TestHelper.initMockServer(8088, new RpcGethServiceTest.RpcDispatcher(true));
+        ipifyPublicIpServer = TestHelper.initMockServer(8089, new IpifyPublicIpServiceTest.IpifyPublicIpDispatcher());
+        freeGeoServer = TestHelper.initMockServer(8090, new FreeGeoServiceTest.FreeGeoDispatcher());
+    }
 
-        @Bean
-        public IpifyApi ipifyApi() {
-            return new MockIpifyApi();
-        }
+    @After
+    public void tearDown() throws IOException {
+        gethServer.shutdown();
+        ipifyPublicIpServer.shutdown();
+        freeGeoServer.shutdown();
     }
 
     @LocalServerPort
