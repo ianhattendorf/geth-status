@@ -4,8 +4,11 @@ import com.ianhattendorf.geth.gethstatus.Application;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,6 +23,11 @@ public class IpifyPublicIpServiceTest {
         String baseUrl = server.url("/").toString();
         Application application = new Application();
         publicIpService = new IpifyPublicIpService(application.ipifyApi(application.ipifyApiRetrofit(baseUrl)));
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        server.shutdown();
     }
 
     @Test
