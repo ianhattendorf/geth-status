@@ -59,7 +59,7 @@ public class IpifyPublicIpServiceTest {
     public static class IpifyPublicIpDispatcher extends Dispatcher {
         @Override
         public MockResponse dispatch(RecordedRequest request) {
-            if (!request.getMethod().equals("GET") || !request.getPath().equals("/format=json")) {
+            if (!request.getMethod().equals("GET") || !request.getPath().equals("/?format=json")) {
                 return new MockResponse().setResponseCode(404);
             }
 

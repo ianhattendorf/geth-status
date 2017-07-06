@@ -85,15 +85,18 @@ public class FreeGeoServiceTest {
 
     public static class FreeGeoDispatcher extends Dispatcher {
 
-        private static final Pattern ipPattern = Pattern.compile("\\/json\\/(\\d+\\.\\d+\\.\\d+\\.\\d+)");
+        private static final Pattern ipPattern = Pattern.compile("\\/json\\/(\\d+\\.\\d+\\.\\d+\\.\\d+)?");
 
         @Override
         public MockResponse dispatch(RecordedRequest request) {
-            if (!request.getMethod().equals("GET") || !request.getPath().startsWith("/json")) {
-                return new MockResponse().setResponseCode(404);
+            if (!request.getMethod().equals("GET")) {
+                return new MockResponse().setResponseCode(405);
             }
 
             Matcher matcher = ipPattern.matcher(request.getPath());
+            if (!matcher.matches()) {
+                return new MockResponse().setResponseCode(404);
+            }
             String freeGeoBody = TestHelper.loadResponseBody("service/free-geo.json");
             // no ip specified
             if (matcher.groupCount() == 0) {
@@ -107,7 +110,7 @@ public class FreeGeoServiceTest {
             return new MockResponse()
                     .setResponseCode(200)
                     .setHeader("Content-Type", "application/json")
-                    .setBody(String.format("{\"ip\":\"%s\"}", matcher.group(1)));
+                    .setBody(freeGeoBody.replace("1.2.3.4", matcher.group(1)));
         }
     }
 }
