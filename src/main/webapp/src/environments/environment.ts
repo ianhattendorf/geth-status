@@ -6,4 +6,4 @@
 export const environment = {
   production: false,
   windowLocationHost: 'localhost:8080'
-};
+}

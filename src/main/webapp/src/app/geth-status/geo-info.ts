@@ -1,5 +1,5 @@
 export class GeoInfo {
-  countryCode: string;
-  countryName: string;
-  regionName: string;
+  countryCode: string
+  countryName: string
+  regionName: string
 }

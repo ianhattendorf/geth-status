@@ -80,7 +80,8 @@
     ],
     "radix": true,
     "semicolon": [
-      "always"
+      true,
+      "never"
     ],
     "triple-equals": [
       true,
@@ -103,6 +104,7 @@
       true,
       "check-branch",
       "check-decl",
+      "check-module",
       "check-operator",
       "check-separator",
       "check-type"

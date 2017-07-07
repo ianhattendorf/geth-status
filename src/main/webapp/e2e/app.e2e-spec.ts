@@ -1,14 +1,14 @@
-import { WebappPage } from './app.po';
+import { WebappPage } from './app.po'
 
 describe('webapp App', () => {
-  let page: WebappPage;
+  let page: WebappPage
 
   beforeEach(() => {
-    page = new WebappPage();
-  });
+    page = new WebappPage()
+  })
 
   it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Geth Node Status');
-  });
-});
+    page.navigateTo()
+    expect(page.getParagraphText()).toEqual('Geth Node Status')
+  })
+})

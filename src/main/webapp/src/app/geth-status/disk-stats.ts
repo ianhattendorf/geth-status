@@ -1,4 +1,4 @@
 export class DiskStats {
-  usedGB: string;
-  totalGB: string;
+  usedGB: string
+  totalGB: string
 }

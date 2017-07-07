@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
-import { GethStatus } from './geth-status';
-import { GethStatusService } from '../geth-status.service';
-import { GeoInfo } from './geo-info';
+import { GethStatus } from './geth-status'
+import { GethStatusService } from '../geth-status.service'
+import { GeoInfo } from './geo-info'
 
 @Component({
   selector: 'app-geth-status',
@@ -12,26 +12,26 @@ import { GeoInfo } from './geo-info';
 })
 export class GethStatusComponent implements OnInit {
 
-  gethStatus: GethStatus;
+  gethStatus: GethStatus
 
   constructor(private gethStatusService: GethStatusService) { }
 
   ngOnInit() {
-    this.loadGethStatus();
+    this.loadGethStatus()
   }
 
   private loadGethStatus() {
-    this.gethStatusService.getGethStatus().then(gethStatus => this.gethStatus = gethStatus);
+    this.gethStatusService.getGethStatus().then(gethStatus => this.gethStatus = gethStatus)
   }
 
   getPrettyGeoLocation(geoInfo: GeoInfo): string {
     if (geoInfo == null) {
-      return 'Unknown';
+      return 'Unknown'
     }
-    return `${geoInfo.countryName}/${geoInfo.regionName}`;
+    return `${geoInfo.countryName}/${geoInfo.regionName}`
   }
 
   getFlagUrl(countryCode: string): string {
-    return `/assets/svg/${countryCode.toLowerCase()}.svg`;
+    return `/assets/svg/${countryCode.toLowerCase()}.svg`
   }
 }

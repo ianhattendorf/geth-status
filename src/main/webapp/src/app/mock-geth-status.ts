@@ -1,5 +1,5 @@
 import { GethStatus } from './geth-status/geth-status'
-import * as moment from 'moment';
+import * as moment from 'moment'
 
 export const GETH_STATUS: GethStatus = {
   clientVersion: 'Geth/v1.6.6-stable-10a45cb5/linux-amd64/go1.8.3',
