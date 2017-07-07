@@ -98,8 +98,10 @@ public class FreeGeoServiceTest {
                 return new MockResponse().setResponseCode(404);
             }
             String freeGeoBody = TestHelper.loadResponseBody("service/free-geo.json");
+            String ip = matcher.group(1);
+
             // no ip specified
-            if (matcher.groupCount() == 0) {
+            if (ip == null) {
                 return new MockResponse()
                         .setResponseCode(200)
                         .setHeader("Content-Type", "application/json")
@@ -110,7 +112,7 @@ public class FreeGeoServiceTest {
             return new MockResponse()
                     .setResponseCode(200)
                     .setHeader("Content-Type", "application/json")
-                    .setBody(freeGeoBody.replace("1.2.3.4", matcher.group(1)));
+                    .setBody(freeGeoBody.replace("1.2.3.4", ip));
         }
     }
 }

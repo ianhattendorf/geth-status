@@ -1,6 +1,11 @@
 {
-  "publicIp":"1.2.3.4",
   "clientVersion":"Geth/v1.6.6-stable-10a45cb5/linux-amd64/go1.8.3",
+  "publicIp":"1.2.3.4",
+  "geoInfo":{
+    "countryCode":"US",
+    "countryName":"United States",
+    "regionName":"Arizona"
+  },
   "protocolVersion":10001,
   "listening":true,
   "peerCount":16,
@@ -18,7 +23,8 @@
         "remoteAddress":"191.235.84.50",
         "remoteGeoInfo":{
           "countryCode":"US",
-          "countryName":"United States"
+          "countryName":"United States",
+          "regionName":"Arizona"
         }
       }
     },
@@ -28,7 +34,8 @@
         "remoteAddress":"52.16.188.185",
         "remoteGeoInfo":{
           "countryCode":"US",
-          "countryName":"United States"
+          "countryName":"United States",
+          "regionName":"Arizona"
         }
       }
     }
