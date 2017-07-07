@@ -11,6 +11,7 @@ export class GethStatusService {
 
   private contextRoot = ''; // TODO fetch somehow?
   private gethStatus: GethStatus = new GethStatus();
+  private firstMessageReceived = false;
 
   constructor() {
     this.stompConnect();
@@ -21,6 +22,10 @@ export class GethStatusService {
   }
 
   private stompConnect(): void {
+    if (!this.firstMessageReceived) {
+      this.updateLoadingHtml('Connecting to server...');
+    }
+
     const host = environment.windowLocationHost
       ? environment.windowLocationHost
       : window.location.host;
@@ -35,19 +40,23 @@ export class GethStatusService {
     };
 
     client.connect(connectionHeaders, () => {
-      const win: any = window;
-      if (win && win.loading_screen) {
-        win.loading_screen.finish();
+      if (!this.firstMessageReceived) {
+        this.updateLoadingHtml('Waiting for server response...');
       }
+
       client.subscribe('/topic/status', this.onStatusMessageReceived.bind(this));
-      client.subscribe('/user/queue/init', this.onStatusMessageReceived.bind(this))
-      client.send('/app/init')
+      client.subscribe('/user/queue/init', this.onStatusMessageReceived.bind(this));
+      client.send('/app/init');
     }, this.onStompError.bind(this));
   }
 
   private onStatusMessageReceived(message): void {
-    const data = JSON.parse(message.body);
-    console.log('received: ', message, data);
+    const data = JSON.parse(message.body)
+    console.log('received: ', message, data)
+    if (!this.firstMessageReceived) {
+      this.firstMessageReceived = true;
+      this.finishLoading();
+    }
 
     this.gethStatus.publicIp = data.publicIp;
     this.gethStatus.clientVersion = data.clientVersion;
@@ -66,5 +75,27 @@ export class GethStatusService {
     console.log('STOMP: ' + error);
     setTimeout(this.stompConnect.bind(this), 10000);
     console.log('STOMP: Reconnecting in 10 seconds...');
+  }
+
+  /**
+   * Update loading html with new text. Extremely simple regex replace, doesn't parse html or do any verification.
+   * @param newText New text to display on loading screen.
+   */
+  private updateLoadingHtml(newText: string): void {
+    console.log('Loading status: ', newText);
+    const win: any = window;
+    if (win && win.loading_screen) {
+      const oldHtml: string = win.loading_screen.options.loadingHtml;
+      const newHtml: string = oldHtml.replace(/(<p class='loading-message'>).*(<\/p>)/, `$1${newText}$2`);
+      win.loading_screen.updateLoadingHtml(newHtml, true);
+    }
+  }
+
+  private finishLoading(): void {
+    console.log('Finished loading.');
+    const win: any = window;
+    if (win && win.loading_screen) {
+      win.loading_screen.finish();
+    }
   }
 }
