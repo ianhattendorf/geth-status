@@ -113,8 +113,10 @@ public class FreeGeoInfo {
 
     public GeoInfo toGeoInfo() {
         GeoInfo geoInfo = new GeoInfo();
+        geoInfo.setIp(ip);
         geoInfo.setCountryCode(countryCode);
         geoInfo.setCountryName(countryName);
+        geoInfo.setRegionName(regionName);
         return geoInfo;
     }
 

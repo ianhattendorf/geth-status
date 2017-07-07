@@ -8,12 +8,16 @@
       </thead>
       <tbody>
       <tr>
+        <th scope="row">Node Version</th>
+        <td>{{gethStatus?.clientVersion}}</td>
+      </tr>
+      <tr>
         <th scope="row">Node IP Address</th>
         <td>{{gethStatus?.publicIp}}</td>
       </tr>
       <tr>
-        <th scope="row">Node Version</th>
-        <td>{{gethStatus?.clientVersion}}</td>
+        <th scope="row">Node Location</th>
+        <td><img *ngIf="gethStatus?.geoInfo" [src]="getFlagUrl(gethStatus.geoInfo.countryCode)" [title]="getPrettyGeoLocation(gethStatus.geoInfo)" [alt]="getPrettyGeoLocation(gethStatus.geoInfo)" class="flag"/> {{getPrettyGeoLocation(gethStatus?.geoInfo)}}</td>
       </tr>
       <tr>
         <th scope="row">Protocol Version</th>
@@ -55,14 +59,6 @@
       <!--<td>WebSocket Status</td>-->
       <!--<td id="ws-status">Offline</td>-->
       <!--</tr>-->
-      <!--<tr>-->
-      <!--<td>IP</td>-->
-      <!--<td th:text="${geoInfo.ip}">Unknown</td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td>Location</td>-->
-      <!--<td th:text="${geoInfo.countryName + '/' + geoInfo.regionName}">Unknown</td>-->
-      <!--</tr>-->
       </tbody>
     </table>
     <h2>Peers</h2>
@@ -77,7 +73,7 @@
       <tbody>
       <tr *ngFor="let peer of gethStatus?.peers; let i = index">
         <th scope="row">{{i + 1}}</th>
-        <td><img [src]="getFlagUrl(peer.network.remoteGeoInfo.countryCode)" [title]="peer.network.remoteGeoInfo.countryName" [alt]="peer.network.remoteGeoInfo.countryName" class="flag"/> {{peer.network.remoteAddress}}</td>
+        <td><img [src]="getFlagUrl(peer.network.remoteGeoInfo.countryCode)" [title]="getPrettyGeoLocation(peer.network.remoteGeoInfo)" [alt]="getPrettyGeoLocation(peer.network.remoteGeoInfo)" class="flag"/> {{peer.network.remoteAddress}}</td>
         <td>{{peer.name}}</td>
       </tr>
       </tbody>

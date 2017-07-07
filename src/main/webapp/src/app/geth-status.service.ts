@@ -59,8 +59,9 @@ export class GethStatusService {
       this.finishLoading();
     }
 
-    this.gethStatus.publicIp = data.publicIp;
     this.gethStatus.clientVersion = data.clientVersion;
+    this.gethStatus.publicIp = data.publicIp;
+    this.gethStatus.geoInfo = data.geoInfo;
     this.gethStatus.protocolVersion = data.protocolVersion;
     this.gethStatus.listening = data.listening;
     this.gethStatus.peerCount = data.peerCount;

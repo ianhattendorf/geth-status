@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { GethStatus } from './geth-status';
 import { GethStatusService } from '../geth-status.service';
+import { GeoInfo } from './geo-info';
 
 @Component({
   selector: 'app-geth-status',
@@ -21,6 +22,13 @@ export class GethStatusComponent implements OnInit {
 
   private loadGethStatus() {
     this.gethStatusService.getGethStatus().then(gethStatus => this.gethStatus = gethStatus);
+  }
+
+  getPrettyGeoLocation(geoInfo: GeoInfo): string {
+    if (geoInfo == null) {
+      return 'Unknown';
+    }
+    return `${geoInfo.countryName}/${geoInfo.regionName}`;
   }
 
   getFlagUrl(countryCode: string): string {

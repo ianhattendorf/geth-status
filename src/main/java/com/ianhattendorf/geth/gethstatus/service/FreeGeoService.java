@@ -24,7 +24,13 @@ public class FreeGeoService implements GeoService {
         this.freeGeoApi = freeGeoApi;
     }
 
-    @Cacheable("freeGeoInfo")
+    @Cacheable("geoInfo")
+    @Override
+    public GeoInfo getInfo() {
+        return getInfo(null);
+    }
+
+    @Cacheable("geoInfo")
     @Override
     public GeoInfo getInfo(String ip) {
         if (ip == null) {
