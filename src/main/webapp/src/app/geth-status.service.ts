@@ -29,7 +29,8 @@ export class GethStatusService {
     const host = environment.windowLocationHost
       ? environment.windowLocationHost
       : window.location.host;
-    const wsUrl = `ws://${host}${this.contextRoot}/ws`;
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${host}${this.contextRoot}/ws`;
     console.log('wsUrl: ', wsUrl);
 
     const client = webstomp.client(wsUrl);
