@@ -1,0 +1,36 @@
+{
+  "publicIp":"1.2.3.4",
+  "clientVersion":"Geth/v1.6.6-stable-10a45cb5/linux-amd64/go1.8.3",
+  "protocolVersion":10001,
+  "listening":true,
+  "peerCount":16,
+  "syncing":"false",
+  "blockNumber":3984201,
+  "gasPrice":21000000000,
+  "diskStats":{
+    "usedGB":"123.45",
+    "totalGB":"543.21"
+  },
+  "peers":[
+    {
+      "name":"Geth/v1.6.5-stable-cf87713d/linux-amd64/go1.7",
+      "network":{
+        "remoteAddress":"191.235.84.50",
+        "remoteGeoInfo":{
+          "countryCode":"US",
+          "countryName":"United States"
+        }
+      }
+    },
+    {
+      "name":"Geth/v1.6.5-stable-cf87713d/linux-amd64/go1.7",
+      "network":{
+        "remoteAddress":"52.16.188.185",
+        "remoteGeoInfo":{
+          "countryCode":"US",
+          "countryName":"United States"
+        }
+      }
+    }
+  ]
+}

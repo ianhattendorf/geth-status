@@ -1,11 +1,14 @@
 package com.ianhattendorf.geth.gethstatus.ws;
 
 import com.ianhattendorf.geth.gethstatus.ExternalServersRule;
+import com.ianhattendorf.geth.gethstatus.TestHelper;
+import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExternalResource;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
@@ -16,15 +19,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
-import org.springframework.web.socket.sockjs.client.SockJsClient;
-import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.Collections;
 import java.util.concurrent.*;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -51,16 +49,16 @@ public class WebSocketTest {
     }
 
     @Test
-    public void shouldReceiveInitMessageFromServer() throws InterruptedException, ExecutionException, TimeoutException {
+    public void shouldReceiveInitMessageFromServer() throws InterruptedException, ExecutionException, TimeoutException, JSONException {
         StompSession session = stompClient
                 .connect(String.format(WEBSOCKET_URL, port), new StompSessionHandlerAdapter() {})
-                .get(1, TimeUnit.SECONDS);
+                .get(5, TimeUnit.SECONDS);
 
         session.subscribe(WEBSOCKET_QUEUE_INIT, new DefaultStompFrameHandler());
         session.send(WEBSOCKET_APP_INIT, null);
 
-        assertEquals("{\"publicIp\":\"1.2.3.4\",\"clientVersion\":\"Geth/v1.6.6-stable-10a45cb5/linux-amd64/go1.8.3\",\"protocolVersion\":10001,\"listening\":true,\"peerCount\":16,\"syncing\":\"false\",\"blockNumber\":3984201,\"gasPrice\":21000000000,\"diskStats\":{\"usedGB\":\"18.86\",\"totalGB\":\"26.45\"},\"peers\":[{\"name\":\"Geth/v1.6.5-stable-cf87713d/linux-amd64/go1.7\",\"network\":{\"remoteAddress\":\"191.235.84.50\",\"remoteGeoInfo\":{\"countryCode\":\"US\",\"countryName\":\"United States\"}}},{\"name\":\"Geth/v1.6.5-stable-cf87713d/linux-amd64/go1.7\",\"network\":{\"remoteAddress\":\"52.16.188.185\",\"remoteGeoInfo\":{\"countryCode\":\"US\",\"countryName\":\"United States\"}}}]}"
-                , blockingQueue.poll(1, TimeUnit.SECONDS));
+        JSONAssert.assertEquals(TestHelper.fileToString("/expected/ws/geth-status.json"),
+                blockingQueue.poll(5, TimeUnit.SECONDS), true);
     }
 
     private class DefaultStompFrameHandler implements StompFrameHandler {
