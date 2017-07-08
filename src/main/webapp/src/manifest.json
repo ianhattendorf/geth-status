@@ -1,0 +1,9 @@
+{
+  "name": "Geth Node Status",
+  "short_name": "GethNodeStatus",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Display geth node status.",
+  "lang": "en-US"
+}
