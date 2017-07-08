@@ -81,7 +81,7 @@ task e2eTestClient(type: Exec, dependsOn: yarnInstall) {
 task buildClient(type: Exec, dependsOn: yarnInstall) {
     workingDir webappDir
 
-    commandLine 'yarn', 'run', 'build', '--', '-prod'
+    commandLine 'yarn', 'run', 'build', '--', '-prod', '--no-progress'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
