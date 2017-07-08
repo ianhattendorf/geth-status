@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.cache.annotation.CacheResult;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -19,6 +20,7 @@ public class LinuxShellGethUptimeService implements GethUptimeService {
 
     private static final Pattern pattern = Pattern.compile("geth\\W*(?:(?<days>\\d+)-)?(?<hours>\\d{2}):(?<minutes>\\d{2}):(?<seconds>\\d{2})");
 
+    @CacheResult(cacheName = "gethUptime")
     @Override
     public Instant getUptime() {
         ProcessBuilder processBuilder = new ProcessBuilder("/bin/sh", "-c", "ps -eo comm,etime | grep geth");
@@ -50,7 +52,9 @@ public class LinuxShellGethUptimeService implements GethUptimeService {
             instant = instant.minus(Duration.ofMinutes(Integer.valueOf(minutes)));
             instant = instant.minus(Duration.ofSeconds(Integer.valueOf(seconds)));
             // truncate to seconds to avoid appearing as a different time if off by a few milliseconds
-            return instant.truncatedTo(ChronoUnit.SECONDS);
+            instant = instant.truncatedTo(ChronoUnit.SECONDS);
+            logger.debug("Geth up since {}", instant);
+            return instant;
         } catch (IOException e) {
             logger.error("IOException", e);
             return null;

@@ -3,8 +3,8 @@ package com.ianhattendorf.geth.gethstatus.service;
 import com.ianhattendorf.geth.gethstatus.domain.publicip.transfer.IpifyApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.Cacheable;
 
+import javax.cache.annotation.CacheResult;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -19,7 +19,7 @@ public class IpifyPublicIpService implements PublicIpService {
         this.ipifyApi = ipifyApi;
     }
 
-    @Cacheable("ipifyPublicIp")
+    @CacheResult(cacheName = "ipifyPublicIp")
     @Override
     public String getPublicIp() {
         try {
