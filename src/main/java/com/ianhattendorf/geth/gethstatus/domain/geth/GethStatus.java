@@ -4,6 +4,7 @@ import com.ianhattendorf.geth.gethstatus.domain.diskusage.DiskStats;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ public class GethStatus {
     private final String clientVersion;
     private final String publicIp;
     private final GeoInfo geoInfo;
+    private final Instant uptime;
     private final int protocolVersion;
     private final boolean listening;
     private final int peerCount;
@@ -20,10 +22,11 @@ public class GethStatus {
     private final DiskStats diskStats;
     private final List<GethPeer> peers;
 
-    public GethStatus(GethService gethService, DiskStats diskStats, GeoInfo geoInfo) {
+    public GethStatus(GethService gethService, DiskStats diskStats, GeoInfo geoInfo, Instant uptime) {
         this.clientVersion = gethService.getClientVersion();
         this.publicIp = geoInfo.getIp();
         this.geoInfo = geoInfo;
+        this.uptime = uptime;
         this.protocolVersion = gethService.getProtocolVersion();
         this.listening = gethService.isListening();
         this.peerCount = gethService.getPeerCount();
@@ -44,6 +47,10 @@ public class GethStatus {
 
     public GeoInfo getGeoInfo() {
         return geoInfo;
+    }
+
+    public Instant getUptime() {
+        return uptime;
     }
 
     public int getProtocolVersion() {
@@ -91,6 +98,7 @@ public class GethStatus {
                 Objects.equals(clientVersion, that.clientVersion) &&
                 Objects.equals(publicIp, that.publicIp) &&
                 Objects.equals(geoInfo, that.geoInfo) &&
+                Objects.equals(uptime, that.uptime) &&
                 Objects.equals(syncing, that.syncing) &&
                 Objects.equals(diskStats, that.diskStats) &&
                 Objects.equals(peers, that.peers);
@@ -98,6 +106,6 @@ public class GethStatus {
 
     @Override
     public int hashCode() {
-        return Objects.hash(clientVersion, publicIp, geoInfo, protocolVersion, listening, peerCount, syncing, blockNumber, gasPrice, diskStats, peers);
+        return Objects.hash(clientVersion, publicIp, geoInfo, uptime, protocolVersion, listening, peerCount, syncing, blockNumber, gasPrice, diskStats, peers);
     }
 }

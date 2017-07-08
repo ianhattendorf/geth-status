@@ -20,6 +20,10 @@
         <td><img *ngIf="gethStatus?.geoInfo" [src]="getFlagUrl(gethStatus.geoInfo.countryCode)" [title]="getPrettyGeoLocation(gethStatus.geoInfo)" [alt]="getPrettyGeoLocation(gethStatus.geoInfo)" class="flag"/> {{getPrettyGeoLocation(gethStatus?.geoInfo)}}</td>
       </tr>
       <tr>
+        <th scope="row">Node Uptime</th>
+        <td>{{getUptime(gethStatus?.uptime)}}</td>
+      </tr>
+      <tr>
         <th scope="row">Protocol Version</th>
         <td>{{gethStatus?.protocolVersion}}</td>
       </tr>

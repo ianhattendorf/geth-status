@@ -50,6 +50,11 @@ public class Application {
     }
 
     @Bean
+    public GethUptimeService gethUptimeService() {
+        return new LinuxShellGethUptimeService();
+    }
+
+    @Bean
     public Duration gethStatusCacheDuration(@Value("${geth.status.cacheDuration}") int cacheDuration) {
         return Duration.ofMillis(cacheDuration);
     }

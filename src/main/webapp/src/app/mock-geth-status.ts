@@ -9,6 +9,7 @@ export const GETH_STATUS: GethStatus = {
     countryName: 'United States',
     regionName: 'Arizona'
   },
+  uptime: moment().subtract(1, 'hours'),
   protocolVersion: 10001,
   listening: true,
   peerCount: 3,
