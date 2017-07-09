@@ -10,7 +10,7 @@ plugins {
 
 group 'com.ianhattendorf.geth'
 version '1.0-SNAPSHOT'
-description 'Display geth node status'
+description 'Display ethereum node status'
 
 sourceCompatibility = 1.8
 mainClassName = 'com.ianhattendorf.geth.gethstatus.Application'
@@ -71,7 +71,7 @@ task lintClient(type: Exec, dependsOn: yarnInstall) {
 task testClient(type: Exec, dependsOn: yarnInstall) {
     workingDir webappDir
 
-    commandLine 'yarn', 'run', 'test', '--single-run'
+    commandLine 'yarn', 'run', 'test', '--', '--single-run'
 }
 
 task e2eTestClient(type: Exec, dependsOn: yarnInstall) {

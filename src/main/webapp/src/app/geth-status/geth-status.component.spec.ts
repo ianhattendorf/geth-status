@@ -25,6 +25,6 @@ describe('GethStatusComponent', () => {
 
   it('should render title in a h1 tag', async(() => {
     const compiled = fixture.debugElement.nativeElement
-    expect(compiled.querySelector('h1').textContent).toContain('Geth Node Status')
+    expect(compiled.querySelector('h1').textContent).toContain('Ethereum Node Status')
   }))
 })

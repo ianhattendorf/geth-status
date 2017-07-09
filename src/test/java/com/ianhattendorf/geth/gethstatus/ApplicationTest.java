@@ -33,7 +33,7 @@ public class ApplicationTest {
     @Test
     public void indexShouldRenderWithTitle() throws Exception {
         assertThat(restTemplate.getForObject(getIndexURL(), String.class))
-                .contains("<title>Geth Node Status</title>");
+                .contains("<title>Ethereum Node Status</title>");
     }
 
     private String getIndexURL() {

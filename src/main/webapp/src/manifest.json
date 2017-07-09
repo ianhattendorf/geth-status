@@ -1,9 +1,9 @@
 {
-  "name": "Geth Node Status",
-  "short_name": "GethNodeStatus",
+  "name": "Ethereum Node Status",
+  "short_name": "EthereumNodeStatus",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "Display geth node status.",
+  "description": "Display ethereum node status.",
   "lang": "en-US"
 }

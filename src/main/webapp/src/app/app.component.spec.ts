@@ -19,9 +19,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy()
   }))
 
-  it(`should have as title 'Geth Node Status'`, async(() => {
+  it(`should have as title 'Ethereum Node Status'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.debugElement.componentInstance
-    expect(app.title).toEqual('Geth Node Status')
+    expect(app.title).toEqual('Ethereum Node Status')
   }))
 })

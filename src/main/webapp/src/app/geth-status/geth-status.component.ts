@@ -3,7 +3,7 @@ import * as moment from 'moment'
 import { Subscription } from 'rxjs/Subscription'
 import { TimerObservable } from 'rxjs/observable/TimerObservable'
 
-import { DiskStats } from "./disk-stats";
+import { DiskStats } from './disk-stats'
 import { GethStatus } from './geth-status'
 import { GethStatusService } from '../geth-status.service'
 import { GeoInfo } from './geo-info'
