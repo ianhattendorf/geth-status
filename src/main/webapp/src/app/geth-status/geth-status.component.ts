@@ -45,6 +45,12 @@ export class GethStatusComponent implements OnInit, OnDestroy {
     if (geoInfo == null) {
       return 'Unknown'
     }
+    if (geoInfo.regionName == null || geoInfo.regionName === '') {
+      return geoInfo.countryName || 'Unknown'
+    }
+    if (geoInfo.countryName == null || geoInfo.countryName === '') {
+      return geoInfo.regionName
+    }
     return `${geoInfo.countryName}/${geoInfo.regionName}`
   }
 
