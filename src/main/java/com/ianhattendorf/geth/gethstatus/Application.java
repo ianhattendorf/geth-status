@@ -50,11 +50,6 @@ public class Application {
     }
 
     @Bean
-    public GethUptimeService gethUptimeService() {
-        return new LinuxShellGethUptimeService();
-    }
-
-    @Bean
     public Duration gethStatusCacheDuration(@Value("${geth.status.cacheDuration}") int cacheDuration) {
         return Duration.ofMillis(cacheDuration);
     }
@@ -85,11 +80,6 @@ public class Application {
     @Bean
     public IpifyApi ipifyApi(Retrofit ipifyApiRetrofit) {
         return ipifyApiRetrofit.create(IpifyApi.class);
-    }
-
-    @Bean
-    public PublicIpService publicIpService(IpifyApi ipifyApi) {
-        return new IpifyPublicIpService(ipifyApi);
     }
 
     @Bean

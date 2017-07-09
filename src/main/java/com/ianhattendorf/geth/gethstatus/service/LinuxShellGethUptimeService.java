@@ -3,6 +3,7 @@ package com.ianhattendorf.geth.gethstatus.service;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import javax.cache.annotation.CacheResult;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 public class LinuxShellGethUptimeService implements GethUptimeService {
 
     private static final Logger logger = LoggerFactory.getLogger(LinuxShellGethUptimeService.class);
