@@ -21,7 +21,7 @@
       </tr>
       <tr>
         <th scope="row">Node Uptime</th>
-        <td>{{gethUptimeText}}</td>
+        <td [title]="gethStatus?.uptime">{{gethUptimeText}}</td>
       </tr>
       <tr>
         <th scope="row">Protocol Version</th>
@@ -53,7 +53,7 @@
       </tr>
       <tr>
         <th scope="row">Last Update Received</th>
-        <td>{{gethStatus?.lastUpdated?.calendar()}}</td>
+        <td [title]="gethStatus?.lastUpdated">{{gethStatus?.lastUpdated?.calendar()}}</td>
       </tr>
       <!--<tr>-->
       <!--<td>WebSocket Status</td>-->
