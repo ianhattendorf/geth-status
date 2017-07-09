@@ -2,6 +2,7 @@ package com.ianhattendorf.geth.gethstatus.domain.geth;
 
 import com.ianhattendorf.geth.gethstatus.domain.diskusage.DiskStats;
 import com.ianhattendorf.geth.gethstatus.domain.geoip.GeoInfo;
+import com.ianhattendorf.geth.gethstatus.domain.memoryusage.MemoryStats;
 import com.ianhattendorf.geth.gethstatus.service.GethService;
 
 import java.time.Instant;
@@ -20,10 +21,12 @@ public class GethStatus {
     private final int blockNumber;
     private final long gasPrice;
     private final DiskStats diskStats;
+    private final MemoryStats memoryStats;
     private final List<GethPeer> peers;
 
-    public GethStatus(GethService gethService, DiskStats diskStats, GeoInfo geoInfo, Instant uptime) {
+    public GethStatus(GethService gethService, DiskStats diskStats, MemoryStats memoryStats, GeoInfo geoInfo, Instant uptime) {
         this.clientVersion = gethService.getClientVersion();
+        this.memoryStats = memoryStats;
         this.publicIp = geoInfo.getIp();
         this.geoInfo = geoInfo;
         this.uptime = uptime;
@@ -85,6 +88,10 @@ public class GethStatus {
         return diskStats;
     }
 
+    public MemoryStats getMemoryStats() {
+        return memoryStats;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,11 +108,12 @@ public class GethStatus {
                 Objects.equals(uptime, that.uptime) &&
                 Objects.equals(syncing, that.syncing) &&
                 Objects.equals(diskStats, that.diskStats) &&
+                Objects.equals(memoryStats, that.memoryStats) &&
                 Objects.equals(peers, that.peers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(clientVersion, publicIp, geoInfo, uptime, protocolVersion, listening, peerCount, syncing, blockNumber, gasPrice, diskStats, peers);
+        return Objects.hash(clientVersion, publicIp, geoInfo, uptime, protocolVersion, listening, peerCount, syncing, blockNumber, gasPrice, diskStats, memoryStats, peers);
     }
 }

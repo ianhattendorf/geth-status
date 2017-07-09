@@ -70,6 +70,7 @@ export class GethStatusService {
     this.gethStatus.blockNumber = data.blockNumber
     this.gethStatus.gasPrice = data.gasPrice.toLocaleString()
     this.gethStatus.diskStats = data.diskStats
+    this.gethStatus.memoryStats = data.memoryStats
     this.gethStatus.peers = data.peers
     this.gethStatus.lastUpdated = moment()
   }

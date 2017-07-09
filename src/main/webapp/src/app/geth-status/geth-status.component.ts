@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription'
 import { TimerObservable } from 'rxjs/observable/TimerObservable'
 
 import { DiskStats } from './disk-stats'
+import { MemoryStats } from './memory-stats'
 import { GethStatus } from './geth-status'
 import { GethStatusService } from '../geth-status.service'
 import { GeoInfo } from './geo-info'
@@ -47,6 +48,13 @@ export class GethStatusComponent implements OnInit, OnDestroy {
       return 'Unknown'
     }
     return `${diskStats.usedGB}GB / ${diskStats.totalGB}GB`
+  }
+
+  getMemoryUsage(memoryStats: MemoryStats): string {
+    if (memoryStats == null) {
+      return 'Unknown'
+    }
+    return `${memoryStats.usedGB}GB / ${memoryStats.totalGB}GB`
   }
 
   getPrettyGeoLocation(geoInfo: GeoInfo): string {

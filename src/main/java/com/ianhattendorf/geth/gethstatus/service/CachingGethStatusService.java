@@ -12,6 +12,7 @@ public class CachingGethStatusService implements GethStatusService {
 
     private final GethService gethService;
     private final DiskStatsService diskStatsService;
+    private final MemoryStatsService memoryStatsService;
     private final GeoService geoService;
     private final GethUptimeService gethUptimeService;
 
@@ -22,9 +23,10 @@ public class CachingGethStatusService implements GethStatusService {
     private Instant lastUpdated = Instant.MIN;
 
     @Autowired
-    public CachingGethStatusService(GethService gethService, DiskStatsService diskStatsService, GeoService geoService, GethUptimeService gethUptimeService, Duration gethStatusCacheDuration) {
+    public CachingGethStatusService(GethService gethService, DiskStatsService diskStatsService, MemoryStatsService memoryStatsService, GeoService geoService, GethUptimeService gethUptimeService, Duration gethStatusCacheDuration) {
         this.gethService = gethService;
         this.diskStatsService = diskStatsService;
+        this.memoryStatsService = memoryStatsService;
         this.geoService = geoService;
         this.gethUptimeService = gethUptimeService;
         this.gethStatusCacheDuration = gethStatusCacheDuration;
@@ -36,7 +38,8 @@ public class CachingGethStatusService implements GethStatusService {
         if (lastUpdated.plus(gethStatusCacheDuration).isBefore(now)) {
             synchronized (updateLock) {
                 if (lastUpdated.plus(gethStatusCacheDuration).isBefore(now)) {
-                    gethStatus = new GethStatus(gethService, diskStatsService.getDiskStats(), geoService.getInfo(), gethUptimeService.getUptime());
+                    gethStatus = new GethStatus(gethService, diskStatsService.getDiskStats(),
+                            memoryStatsService.getMemoryStats(), geoService.getInfo(), gethUptimeService.getUptime());
                     lastUpdated = now;
                 }
             }

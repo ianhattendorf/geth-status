@@ -21,5 +21,9 @@ export const GETH_STATUS: GethStatus = {
   diskStats: {
     usedGB: '123',
     totalGB: '321'
+  },
+  memoryStats: {
+    usedGB: '2.4',
+    totalGB: '4.0'
   }
 }

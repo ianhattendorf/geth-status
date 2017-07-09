@@ -17,6 +17,10 @@
     "usedGB":"123.45",
     "totalGB":"543.21"
   },
+  "memoryStats":{
+    "usedGB":"1.23",
+    "totalGB":"3.21"
+  },
   "peers":[
     {
       "name":"Geth/v1.6.5-stable-cf87713d/linux-amd64/go1.7",

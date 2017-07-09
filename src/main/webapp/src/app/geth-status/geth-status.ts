@@ -2,6 +2,7 @@ import { Moment } from 'moment'
 
 import {GethPeer} from './geth-peer'
 import {DiskStats} from './disk-stats'
+import {MemoryStats} from './memory-stats'
 import {GeoInfo} from './geo-info'
 
 export class GethStatus {
@@ -17,5 +18,6 @@ export class GethStatus {
   gasPrice: number
   peers: GethPeer[]
   diskStats: DiskStats
+  memoryStats: MemoryStats
   lastUpdated: Moment
 }
