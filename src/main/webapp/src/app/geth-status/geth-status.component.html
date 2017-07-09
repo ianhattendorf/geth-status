@@ -3,7 +3,7 @@
     <h1 class="text-center">Ethereum Node Status</h1>
   </header>
   <section class="card-block">
-    <table class="table table-sm table-bordered">
+    <table class="primary-info table table-sm table-bordered">
       <thead>
       </thead>
       <tbody>
@@ -32,10 +32,6 @@
         <td>{{gethStatus?.listening}}</td>
       </tr>
       <tr>
-        <th scope="row">Connected Peers</th>
-        <td>{{gethStatus?.peerCount}}</td>
-      </tr>
-      <tr>
         <th scope="row">Syncing</th>
         <td>{{gethStatus?.syncing}}</td>
       </tr>
@@ -48,17 +44,21 @@
         <td>{{gethStatus?.gasPrice}}</td>
       </tr>
       <tr>
-        <th scope="row">Disk Usage</th>
-        <td>{{getDiskUsage(gethStatus?.diskStats)}}</td>
-      </tr>
-      <tr>
-        <th scope="row">Last Update Received</th>
+        <th scope="row">Last Update</th>
         <td [title]="gethStatus?.lastUpdated">{{gethStatus?.lastUpdated?.calendar()}}</td>
       </tr>
       <!--<tr>-->
       <!--<td>WebSocket Status</td>-->
       <!--<td id="ws-status">Offline</td>-->
       <!--</tr>-->
+      </tbody>
+    </table>
+    <table class="secondary-info table table-bordered">
+      <tbody>
+      <tr>
+        <td><span>{{getDiskUsage(gethStatus?.diskStats)}}</span><small>Disk Usage</small></td>
+        <td><span>{{gethStatus?.peerCount}}</span><small>Peers</small></td>
+      </tr>
       </tbody>
     </table>
     <h2>Peers</h2>

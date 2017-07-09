@@ -6,3 +6,20 @@ img.flag {
 .card {
   margin-top: 1em;
 }
+
+table.primary-info {
+  margin-bottom: 0;
+}
+
+table.secondary-info strong, table.secondary-info small {
+  display: flex;
+  line-height: 1em;
+}
+
+table.secondary-info span {
+  font-size: 1.5em;
+}
+
+table.secondary-info small {
+  color: #888;
+}
