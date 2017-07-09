@@ -17,8 +17,8 @@ export class GethStatusService {
     this.stompConnect()
   }
 
-  getGethStatus(): Promise<GethStatus> {
-    return Promise.resolve(this.gethStatus)
+  getGethStatus(): GethStatus {
+    return this.gethStatus
   }
 
   private stompConnect(): void {

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import * as moment from 'moment'
+import { Subscription } from 'rxjs/Subscription'
+import { TimerObservable } from 'rxjs/observable/TimerObservable'
 
 import { GethStatus } from './geth-status'
 import { GethStatusService } from '../geth-status.service'
 import { GeoInfo } from './geo-info'
-import * as moment from 'moment'
 
 @Component({
   selector: 'app-geth-status',
@@ -11,9 +13,11 @@ import * as moment from 'moment'
   styleUrls: ['./geth-status.component.css'],
   providers: [GethStatusService]
 })
-export class GethStatusComponent implements OnInit {
+export class GethStatusComponent implements OnInit, OnDestroy {
 
   gethStatus: GethStatus
+  gethUptimeText: string
+  uptimeSubscription: Subscription
 
   /**
    * Pluralize words (strings) by literally adding an s whenever amount != 1
@@ -28,11 +32,13 @@ export class GethStatusComponent implements OnInit {
   constructor(private gethStatusService: GethStatusService) { }
 
   ngOnInit() {
-    this.loadGethStatus()
+    this.gethStatus = this.gethStatusService.getGethStatus()
+    this.uptimeSubscription = TimerObservable.create(2000, 1000)
+      .subscribe(() => this.gethUptimeText = this.getUptime(this.gethStatus.uptime))
   }
 
-  private loadGethStatus() {
-    this.gethStatusService.getGethStatus().then(gethStatus => this.gethStatus = gethStatus)
+  ngOnDestroy() {
+    this.uptimeSubscription.unsubscribe()
   }
 
   getPrettyGeoLocation(geoInfo: GeoInfo): string {
