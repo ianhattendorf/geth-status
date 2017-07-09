@@ -48,12 +48,8 @@
         <td>{{gethStatus?.gasPrice}}</td>
       </tr>
       <tr>
-        <th scope="row">Disk Space Used</th>
-        <td>{{gethStatus?.diskStats ? gethStatus?.diskStats?.usedGB + 'GB' : ''}}</td>
-      </tr>
-      <tr>
-        <th scope="row">Disk Space Total</th>
-        <td>{{gethStatus?.diskStats ? gethStatus?.diskStats?.totalGB + 'GB' : ''}}</td>
+        <th scope="row">Disk Usage</th>
+        <td>{{getDiskUsage(gethStatus?.diskStats)}}</td>
       </tr>
       <tr>
         <th scope="row">Last Update Received</th>

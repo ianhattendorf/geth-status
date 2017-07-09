@@ -3,6 +3,7 @@ import * as moment from 'moment'
 import { Subscription } from 'rxjs/Subscription'
 import { TimerObservable } from 'rxjs/observable/TimerObservable'
 
+import { DiskStats } from "./disk-stats";
 import { GethStatus } from './geth-status'
 import { GethStatusService } from '../geth-status.service'
 import { GeoInfo } from './geo-info'
@@ -39,6 +40,13 @@ export class GethStatusComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.uptimeSubscription.unsubscribe()
+  }
+
+  getDiskUsage(diskStats: DiskStats): string {
+    if (diskStats == null) {
+      return 'Unknown'
+    }
+    return `${diskStats.usedGB}GB / ${diskStats.totalGB}GB`
   }
 
   getPrettyGeoLocation(geoInfo: GeoInfo): string {
