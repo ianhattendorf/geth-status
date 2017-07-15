@@ -18,6 +18,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Clock;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,5 +86,10 @@ public class Application {
     @Bean
     public String gethDataDir(@Value("${geth.dataDir}") String dataDir) {
         return dataDir;
+    }
+
+    @Bean
+    public Clock clock() {
+        return Clock.systemUTC();
     }
 }
